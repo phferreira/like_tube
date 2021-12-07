@@ -6,17 +6,21 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.14.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  flutter_modular: ^4.2.0
+  flutter_triple: ^1.2.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
+  triple_test: ^0.0.8
+  modular_test: ^1.0.1+1
 
 flutter:
   uses-material-design: true
