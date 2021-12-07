@@ -14,6 +14,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_modular: ^4.2.0
   flutter_triple: ^1.2.5
+  fpdart: ^0.0.12
 
 dev_dependencies:
   flutter_test:
