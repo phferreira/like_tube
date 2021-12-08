@@ -26,7 +26,17 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: TextField(
+          controller: store.pesquisarController,
+          decoration: InputDecoration(
+            labelText: 'Pesquisar',
+            suffixIcon: IconButton(
+              color: Colors.black,
+              onPressed: () => store.getVideoByDescription(''),
+              icon: const Icon(Icons.search),
+            ),
+          ),
+        ),
       ),
       body: ScopedBuilder<HomeStore, Exception, int>(
         store: store,
