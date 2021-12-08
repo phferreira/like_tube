@@ -99,6 +99,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.4"
   fake_async:
     dependency: transitive
     description:
@@ -236,7 +243,7 @@ packages:
     source: hosted
     version: "1.0.1"
   mocktail:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: mocktail
       url: "https://pub.dartlang.org"
