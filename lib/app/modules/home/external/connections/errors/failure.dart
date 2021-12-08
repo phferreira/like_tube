@@ -6,3 +6,17 @@ class ApiConnectionError implements IFailure {
 
   ApiConnectionError([this.message = ""]);
 }
+
+class TimeOutError implements IFailure {
+  @override
+  final String message;
+
+  TimeOutError([this.message = ""]);
+}
+
+class NotFoundError implements IFailure {
+  @override
+  final String message;
+
+  NotFoundError([this.message = ""]);
+}
