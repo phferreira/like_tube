@@ -38,15 +38,10 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
           ),
         ),
       ),
-      body: ScopedBuilder<HomeStore, Exception, int>(
+      body: ScopedBuilder<HomeStore, Exception, List<VideoModel>>(
         store: store,
-        onState: (_, counter) {
-          return ElevatedButton(
-            child: const Text('Buscar'),
-            onPressed: () {
-              store.getVideoByDescription('');
-            },
-          );
+        onState: (_, list) {
+            return const SizedBox();
         },
         onError: (context, error) {
           return Container();
