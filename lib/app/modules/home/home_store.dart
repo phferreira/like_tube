@@ -7,12 +7,12 @@ import 'package:like_tube/app/modules/home/domain/usecases/i_get_video_by_descri
 class HomeStore extends NotifierStore<Exception, int> {
   HomeStore() : super(0);
 
-  final IGetVideoByDescriptionUsecase usecase = Modular.get();
+class HomeStore extends NotifierStore<Exception, List<VideoModel>> {
+  HomeStore() : super([]);
+  final IGetVideoByDescriptionUsecase _usecase = Modular.get();
   final pesquisarController = TextEditingController();
-  List<VideoModel> listVideoModel = [];
 
   void getVideoByDescription(String param) async {
-    listVideoModel = (await usecase(pesquisarController.text)).getRight().getOrElse(() => []);
-    update(5);
+    update((await _usecase(pesquisarController.text)).getRight().getOrElse(() => []));
   }
 }
