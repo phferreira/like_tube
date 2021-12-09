@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
+import 'package:like_tube/app/modules/home/domain/entities/video_model.dart';
 import 'home_store.dart';
 
 class HomePage extends StatefulWidget {
