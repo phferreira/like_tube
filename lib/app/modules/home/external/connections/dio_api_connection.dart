@@ -18,7 +18,7 @@ class DioApiConnection extends IConnection {
       response = await dio.get(
         '/search',
         queryParameters: {
-          'key': API_KEY,
+          'key': apiKey,
           'part': 'snippet,id',
           'order': 'date',
           'maxResults': 15,
