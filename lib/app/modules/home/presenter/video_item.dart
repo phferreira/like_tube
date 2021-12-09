@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:like_tube/app/modules/home/domain/entities/video_model.dart';
-import 'package:like_tube/app/modules/home/home_store.dart';
 
 class VideoItem extends StatelessWidget {
   final VideoModel videoModel;
