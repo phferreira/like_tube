@@ -3,19 +3,13 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:like_tube/app/modules/home/domain/entities/video_model.dart';
 import 'package:like_tube/app/modules/home/home_store.dart';
 
-class VideoItem extends StatefulWidget {
+class VideoItem extends StatelessWidget {
   final VideoModel videoModel;
 
-  const VideoItem({Key? key, required this.videoModel}) : super(key: key);
-
-  @override
-  _VideoItemState createState() => _VideoItemState(videoModel: videoModel);
-}
-
-class _VideoItemState extends ModularState<VideoItem, HomeStore> {
-  final VideoModel videoModel;
-
-  _VideoItemState({required this.videoModel});
+  const VideoItem({
+    Key? key,
+    required this.videoModel,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
