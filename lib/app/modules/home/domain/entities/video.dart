@@ -12,6 +12,7 @@ class Video extends IVideo {
     id = '';
     title = '';
     url = '';
+    favorite = false;
   }
 
   Video.fromJson(Map<String, dynamic> json) {
