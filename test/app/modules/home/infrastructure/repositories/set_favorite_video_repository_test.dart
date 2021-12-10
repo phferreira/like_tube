@@ -28,11 +28,11 @@ void main() {
     verify(() => datasource(any()));
   });
 
-  test('Deve retornar um Left(SetFavoriteVideoDatasourceError) a não atualizar favorite ', () async {
+  test('Deve retornar um Left(SetFavoriteVideoDatasourceError) ', () async {
     when(() => datasource(any())).thenThrow(DataBaseError());
     final result = await repository(video);
     expect(result.isLeft(), true);
-    expect(result, isA<Left<IFailure, DatabaseResultEnum>>());
+    expect(result, isA<Left<IFailure, bool>>());
     expect(result.fold(id, id), isA<IFailure>());
     verify(() => datasource(any()));
   });
