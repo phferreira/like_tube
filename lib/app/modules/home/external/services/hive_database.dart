@@ -18,10 +18,23 @@ class HiveDatabase extends IDataBase {
     Hive.close();
   }
 
+  Future<Box> openBox(String table) async {
+    try {
+      return await Hive.openBox(table);
+    } catch (e) {
+      await start();
+      return await Hive.openBox(table);
+    }
+  }
+
+  List<Map<String, dynamic>> result(List<dynamic> value) {
+    return jsonDecode(jsonEncode(value));
+  }
+
   @override
   Future<Either<IFailure, List>> delete(String table, WhereType where) async {
     try {
-      Box box = await Hive.openBox(table);
+      Box box = await openBox(table);
 
       List<dynamic> _removed = [];
 
@@ -44,7 +57,7 @@ class HiveDatabase extends IDataBase {
   @override
   Future<Either<IFailure, List>> insert(String table, ColumnType columns) async {
     try {
-      Box box = await Hive.openBox(table);
+      Box box = await openBox(table);
 
       WhereType _where = {};
       for (var _key in columns.keys) {
@@ -66,7 +79,7 @@ class HiveDatabase extends IDataBase {
   Future<Either<IFailure, List>> select(String table, ColumnsSelectType columns, WhereType where) async {
     List<dynamic> _finalList = [];
     try {
-      Box box = await Hive.openBox(table);
+      Box box = await openBox(table);
 
       List<dynamic> _listBox = [];
       _listBox = box.values.toList();
@@ -88,8 +101,9 @@ class HiveDatabase extends IDataBase {
   @override
   Future<Either<IFailure, List>> update(String table, ColumnType columns, WhereType where) async {
     List<dynamic> _finalList = [];
+    List<dynamic> _resultList = [];
     try {
-      Box box = await Hive.openBox(table);
+      Box box = await openBox(table);
       _finalList = (await select(table, [], where)).fold((l) => [], (r) => r);
 
       where.forEach((_keyWhere, _valueWhere) {
@@ -99,22 +113,25 @@ class HiveDatabase extends IDataBase {
         });
       });
 
-      for (var _element in _finalList) {
-        Map<String, dynamic> _result = jsonDecode(_element.toString());
+      if (_finalList.isNotEmpty) {
+        for (var _element in _finalList) {
+          Map<String, dynamic> _result = jsonDecode(_element.toString());
 
-        columns.forEach((_keyUpdate, _valueUpdate) {
-          _result[_keyUpdate] = _valueUpdate;
-        });
+          columns.forEach((_keyUpdate, _valueUpdate) {
+            _result[_keyUpdate] = _valueUpdate;
+          });
 
-        box.put(_result.values.first, jsonEncode(_result));
-        _element = _result;
+          box.put(_result.values.first, jsonEncode(_result));
+          _resultList.add(_result);
+        }
+        return Right(_resultList);
+      } else {
+        return Left(DataBaseNotUpdateError());
       }
     } on IFailure catch (e) {
       return Left(e);
     } catch (e) {
       return Left(DataBaseError(e.toString()));
     }
-
-    return Right(_finalList);
   }
 }
