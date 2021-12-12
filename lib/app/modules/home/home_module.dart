@@ -19,6 +19,7 @@ import 'package:like_tube/app/modules/home/infrastructure/repositories/remove_hi
 import 'package:like_tube/app/modules/home/infrastructure/repositories/set_favorite_video_repository.dart';
 import 'package:like_tube/app/modules/home/infrastructure/repositories/set_historic_video_repository.dart';
 import 'package:like_tube/app/modules/home/video_item_store.dart';
+import 'package:like_tube/app/modules/video/video_module.dart';
 import '../home/home_store.dart';
 import 'domain/usecases/implementation/get_video_by_description_usecase.dart';
 import 'external/datasources/get_video_by_description_datasource.dart';
@@ -64,5 +65,6 @@ class HomeModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ChildRoute(Modular.initialRoute, child: (_, args) => const HomePage()),
+    ModuleRoute('/video', module: VideoModule()),
   ];
 }
