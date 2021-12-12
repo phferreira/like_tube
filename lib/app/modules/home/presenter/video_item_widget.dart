@@ -4,6 +4,7 @@ import 'package:flutter_triple/flutter_triple.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
 import 'package:like_tube/app/modules/home/domain/entities/video.dart';
 import 'package:like_tube/app/modules/home/video_item_store.dart';
+import 'package:like_tube/app/modules/video/video_page.dart';
 
 class VideoItemWidget extends StatelessWidget {
   final Video video;
@@ -24,12 +25,22 @@ class VideoItemWidget extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              Container(
-                width: 200,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(video.url),
-                    fit: BoxFit.cover,
+              GestureDetector(
+                onTap: () {
+                  Modular.to.push(MaterialPageRoute(
+                    builder: (context) => VideoPage(video: video),
+                  ));
+                },
+                child: Hero(
+                  tag: video.id,
+                  child: Container(
+                    width: 200,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(video.url),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
               ),
