@@ -34,7 +34,7 @@ class DioApiConnection extends IHttp {
       return Left(e.response!.statusCode!.getFailure(e.message));
     }
 
-    final result = (response.data['items'] as List).map((element) => Video.fromJson(element)).toList();
+    final result = (response.data['items'] as List).map((element) => Video.fromJsonHttp(element)).toList();
     return Right(result);
   }
 }
