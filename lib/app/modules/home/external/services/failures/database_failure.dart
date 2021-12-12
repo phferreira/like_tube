@@ -14,6 +14,13 @@ class DataBaseUpdateError implements IFailure {
   DataBaseUpdateError([this.message = ""]);
 }
 
+class DataBaseNotUpdateError implements IFailure {
+  @override
+  final String message;
+
+  DataBaseNotUpdateError([this.message = ""]);
+}
+
 class DataBaseInsertError implements IFailure {
   @override
   final String message;
