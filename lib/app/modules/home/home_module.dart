@@ -1,8 +1,10 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:like_tube/app/modules/home/bottom_navigation_store.dart';
+import 'package:like_tube/app/modules/home/domain/usecases/implementation/get_all_favorite_video_usecase.dart';
 import 'package:like_tube/app/modules/home/domain/usecases/implementation/get_historic_video_usecase.dart';
 import 'package:like_tube/app/modules/home/domain/usecases/implementation/remove_historic_video_usecase.dart';
 import 'package:like_tube/app/modules/home/domain/usecases/implementation/set_historic_video_usecase.dart';
+import 'package:like_tube/app/modules/home/external/datasources/get_all_favorite_video_datasource.dart';
 import 'package:like_tube/app/modules/home/external/datasources/get_historic_video_datasource.dart';
 import 'package:like_tube/app/modules/home/external/datasources/remove_historic_video_datasource.dart';
 import 'package:like_tube/app/modules/home/external/datasources/set_historic_video_datasource.dart';
@@ -10,6 +12,7 @@ import 'package:like_tube/app/modules/home/external/services/dio_api_connection.
 import 'package:like_tube/app/modules/home/domain/usecases/implementation/set_favorite_video_usecase.dart';
 import 'package:like_tube/app/modules/home/external/datasources/set_favorite_video_datasource.dart';
 import 'package:like_tube/app/modules/home/external/services/hive_database.dart';
+import 'package:like_tube/app/modules/home/infrastructure/repositories/get_all_favorite_video_repository.dart';
 import 'package:like_tube/app/modules/home/infrastructure/repositories/get_historic_video_repository.dart';
 import 'package:like_tube/app/modules/home/infrastructure/repositories/remove_historic_video_repository.dart';
 import 'package:like_tube/app/modules/home/infrastructure/repositories/set_favorite_video_repository.dart';
@@ -39,18 +42,21 @@ class HomeModule extends Module {
     Bind.lazySingleton((i) => GetHistoricVideoDatasource(database: i())),
     Bind.lazySingleton((i) => SetHistoricVideoDatasource(database: i())),
     Bind.lazySingleton((i) => RemoveHistoricVideoDatasource(database: i())),
+    Bind.lazySingleton((i) => GetAllFavoriteVideoDatasource(database: i())),
     // Repositories
     Bind.lazySingleton((i) => GetVideoByDescriptionRepository(datasource: i())),
     Bind.lazySingleton((i) => SetFavoriteVideoRepository(datasource: i())),
     Bind.lazySingleton((i) => GetHistoricVideoRepository(datasource: i())),
     Bind.lazySingleton((i) => SetHistoricVideoRepository(datasource: i())),
     Bind.lazySingleton((i) => RemoveHistoricVideoRepository(datasource: i())),
+    Bind.lazySingleton((i) => GetAllFavoriteVideoRepository(datasource: i())),
     // Usecases
     Bind.lazySingleton((i) => GetVideoByDescriptionUsecase(repository: i())),
     Bind.lazySingleton((i) => SetFavoriteVideoUsecase(repository: i())),
     Bind.lazySingleton((i) => GetHistoricVideoUsecase(repository: i())),
     Bind.lazySingleton((i) => SetHistoricVideoUsecase(repository: i())),
     Bind.lazySingleton((i) => RemoveHistoricVideoUsecase(repository: i())),
+    Bind.lazySingleton((i) => GetAllFavoriteVideoUsecase(repository: i())),
   ];
 
   @override
