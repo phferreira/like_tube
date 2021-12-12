@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
@@ -20,7 +18,7 @@ void main() {
 
   setUpAll(() {
     Video _video = Video(id: '100', title: 'Titulo 01', url: 'http://teste.com');
-    _listResult.add(jsonEncode(_video.toJson()));
+    _listResult.add(_video.toJson());
   });
 
   test('Deve retornar uma List<Video>', () async {

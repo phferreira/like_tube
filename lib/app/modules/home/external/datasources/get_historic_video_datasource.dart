@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:fpdart/fpdart.dart';
 import 'package:like_tube/app/core/connections/i_database.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
@@ -21,7 +19,7 @@ class GetHistoricVideoDatasource extends IGetHistoricVideoDatasource {
 
       (await database.select(_table, [], {})).fold((l) => throw l, (r) {
         return r.toList().forEach((element) {
-          Video.fromJson(jsonDecode(element.toString()));
+          _databaseResult.add(Video.fromJson(element.toString()));
         });
       });
       return Right(_databaseResult);
