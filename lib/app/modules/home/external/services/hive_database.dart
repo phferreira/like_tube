@@ -5,7 +5,6 @@ import 'package:fpdart/fpdart.dart';
 import 'package:like_tube/app/core/connections/i_database.dart';
 import 'package:like_tube/app/core/types/query_type.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
-import 'package:hive/hive.dart';
 import 'package:like_tube/app/modules/home/external/services/errors/database_failure.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
