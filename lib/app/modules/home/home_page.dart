@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
-import 'package:like_tube/app/modules/home/domain/entities/video.dart';
+import 'package:like_tube/app/core/errors/i_failure.dart';
+import 'package:like_tube/app/modules/home/bottom_navigation_store.dart';
+import 'package:like_tube/app/modules/home/presenter/botton_navigation_bar_widget.dart';
+import 'package:like_tube/app/modules/home/presenter/list_widget.dart';
 import 'home_store.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,38 +19,33 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
   @override
   void initState() {
     store.observer(
-      onState: (state) => debugPrint('state:' + state.toString()),
-      onLoading: (loading) => debugPrint('loading:' + loading.toString()),
-      onError: (error) => debugPrint('error:' + error.toString()),
+      onState: (state) => debugPrint('state change '),
+      onLoading: (loading) => debugPrint('is loading'),
+      onError: (error) => debugPrint('error true'),
     );
     super.initState();
   }
+
+  BottomNavigationStore get bottomNavigationStore => Modular.get<BottomNavigationStore>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: TextField(
-          controller: store.pesquisarController,
-          decoration: InputDecoration(
-            labelText: 'Pesquisar',
-            suffixIcon: IconButton(
-              color: Colors.black,
-              onPressed: () => store.getVideoByDescription(''),
-              icon: const Icon(Icons.search),
-            ),
-          ),
+        title: ScopedBuilder<BottomNavigationStore, IFailure, int>(
+          onLoading: (_) => const SizedBox(),
+          onState: (_, index) {
+            return ListWidget.listWidgetMenu.elementAt(index);
+          },
         ),
       ),
-      body: ScopedBuilder<HomeStore, Exception, List<Video>>(
-        store: store,
-        onState: (_, list) {
-          return const SizedBox();
-        },
-        onError: (context, error) {
-          return Container();
+      body: ScopedBuilder<BottomNavigationStore, IFailure, int>(
+        onLoading: (_) => const SizedBox(),
+        onState: (_, index) {
+          return ListWidget.listWidgetBody.elementAt(index);
         },
       ),
+      bottomNavigationBar: const BottomNavigationBarWidget(),
     );
   }
 }
