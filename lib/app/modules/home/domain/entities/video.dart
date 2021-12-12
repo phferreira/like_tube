@@ -30,23 +30,31 @@ class Video implements IVideo {
 
   Map<String, dynamic> toMap() {
     return {
-      'favorite': '$favorite',
-      'id': id,
-      'title': title,
-      'url': url,
+      'bl_favorite': '$favorite',
+      'cd_id': id,
+      'tx_title': title,
+      'tx_url': url,
     };
   }
 
   factory Video.fromMap(Map<String, dynamic> map) {
     return Video(
-      favorite: map['favorite'].toString() == 'true' ? true : false,
-      id: map['id'] ?? '',
-      title: map['title'] ?? '',
-      url: map['url'] ?? '',
+      favorite: map['bl_favorite'].toString() == 'true' ? true : false,
+      id: map['cd_id'] ?? '',
+      title: map['tx_title'] ?? '',
+      url: map['tx_url'] ?? '',
     );
   }
 
   String toJson() => jsonEncode(toMap());
 
   factory Video.fromJson(String source) => Video.fromMap(jsonDecode(source));
+
+  factory Video.fromJsonHttp(Map<String, dynamic> json) {
+    return Video(
+      id: json['id']['videoId'] ?? '',
+      title: json['snippet']['title'] ?? '',
+      url: json['snippet']['thumbnails']['high']['url'] ?? '',
+    );
+  }
 }
