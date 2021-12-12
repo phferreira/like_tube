@@ -21,6 +21,13 @@ class Video implements IVideo {
     this.favorite = false,
   });
 
+  Video.noProperties() {
+    id = '';
+    title = '';
+    url = '';
+    favorite = false;
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'favorite': favorite,
