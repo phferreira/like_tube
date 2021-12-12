@@ -14,7 +14,7 @@ class GetHistoricVideoRepository extends IGetHistoricVideoRepository {
   Future<Either<IFailure, List<Video>>> call() async {
     try {
       final _result = await datasource();
-      return Right(_result);
+      return _result;
     } on IFailure catch (e) {
       return Left(e);
     } catch (e) {

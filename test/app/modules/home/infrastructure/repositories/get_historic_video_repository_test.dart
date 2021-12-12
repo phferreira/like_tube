@@ -15,7 +15,7 @@ void main() {
   final IGetHistoricVideoRepository repository = GetHistoricVideoRepository(datasource: datasource);
 
   test('Deve retornar uma Right(List<Video>)', () async {
-    when(() => datasource()).thenAnswer((_) async => const <Video>[]);
+    when(() => datasource()).thenAnswer((_) async => const Right(<Video>[]));
 
     final _result = await repository();
 
