@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:like_tube/app/core/connections/i_database.dart';
 import 'package:like_tube/app/core/types/query_type.dart';
@@ -34,7 +33,6 @@ class HiveDatabase extends IDataBase {
         box.delete(_deleteKey);
       }
 
-      debugPrint('Removidos: ' + _removed.toString());
       return Right(_removed);
     } on IFailure catch (e) {
       return Left(e);
@@ -58,7 +56,6 @@ class HiveDatabase extends IDataBase {
 
       await box.put(columns.values.first, jsonEncode(columns));
       final _result = (await select(table, [], _where)).fold((l) => [], (r) => r);
-      debugPrint('Inseridos:' + _result.toString());
       return Right(_result);
     } catch (e) {
       return Left(DataBaseError(e.toString()));
@@ -85,7 +82,6 @@ class HiveDatabase extends IDataBase {
       return Left(DataBaseError(e.toString()));
     }
 
-    debugPrint('Localizados:' + _finalList.toString());
     return Right(_finalList);
   }
 
@@ -119,7 +115,6 @@ class HiveDatabase extends IDataBase {
       return Left(DataBaseError(e.toString()));
     }
 
-    debugPrint('Atualizados: ' + _finalList.toString());
     return Right(_finalList);
   }
 }
