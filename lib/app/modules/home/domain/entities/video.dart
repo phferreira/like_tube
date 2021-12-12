@@ -30,7 +30,7 @@ class Video implements IVideo {
 
   Map<String, dynamic> toMap() {
     return {
-      'favorite': favorite,
+      'favorite': '$favorite',
       'id': id,
       'title': title,
       'url': url,
@@ -39,7 +39,7 @@ class Video implements IVideo {
 
   factory Video.fromMap(Map<String, dynamic> map) {
     return Video(
-      favorite: map['favorite'] ?? false,
+      favorite: map['favorite'].toString() == 'true' ? true : false,
       id: map['id'] ?? '',
       title: map['title'] ?? '',
       url: map['url'] ?? '',
