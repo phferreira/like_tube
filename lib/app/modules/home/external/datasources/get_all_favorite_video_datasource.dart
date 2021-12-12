@@ -13,7 +13,7 @@ class GetAllFavoriteVideoDatasource extends IGetAllFavoriteVideoDatasource {
 
   @override
   Future<Either<IFailure, List<Video>>> call() async {
-    const String _table = 'tb_historicvideos';
+    const String _table = 'tb_favoritevideos';
 
     WhereType _where = {
       'bl_favorite': ['true'],
