@@ -4,7 +4,7 @@ import 'package:like_tube/app/core/connections/i_database.dart';
 import 'package:like_tube/app/core/enum/database_result_enum.dart';
 import 'package:like_tube/app/modules/home/domain/entities/video.dart';
 import 'package:like_tube/app/modules/home/external/datasources/set_favorite_video_datasource.dart';
-import 'package:like_tube/app/modules/home/external/services/errors/database_failure.dart';
+import 'package:like_tube/app/modules/home/external/services/failures/database_failure.dart';
 import 'package:mocktail/mocktail.dart';
 
 class DatabaseMock extends Mock implements IDataBase {}

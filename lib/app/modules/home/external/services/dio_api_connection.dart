@@ -3,7 +3,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:like_tube/app/core/constants/key.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
 import 'package:like_tube/app/modules/home/domain/entities/video.dart';
-import './errors/http_failure.dart';
+import './failures/http_failure.dart';
 import '../../../../core/connections/i_http.dart';
 
 class DioApiConnection extends IHttp {

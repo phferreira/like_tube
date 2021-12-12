@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
 import 'package:like_tube/app/modules/home/domain/entities/video.dart';
-import 'package:like_tube/app/modules/home/external/services/errors/database_failure.dart';
+import 'package:like_tube/app/modules/home/external/services/failures/database_failure.dart';
 import 'package:like_tube/app/modules/home/infrastructure/datasources/i_set_favorite_video_datasource.dart';
 import 'package:like_tube/app/modules/home/infrastructure/repositories/set_favorite_video_repository.dart';
 import 'package:mocktail/mocktail.dart';
