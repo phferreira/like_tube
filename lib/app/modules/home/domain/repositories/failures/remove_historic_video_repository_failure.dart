@@ -4,5 +4,5 @@ class RemoveHistoricVideoRepositoryError implements IFailure {
   @override
   final String message;
 
-  RemoveHistoricVideoRepositoryError([this.message = ""]);
+  RemoveHistoricVideoRepositoryError([this.message = '']);
 }

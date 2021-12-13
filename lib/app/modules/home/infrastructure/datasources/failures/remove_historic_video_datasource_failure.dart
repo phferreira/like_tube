@@ -4,5 +4,5 @@ class RemoveHistoricVideoDatasourceError implements IFailure {
   @override
   final String message;
 
-  RemoveHistoricVideoDatasourceError([this.message = ""]);
+  RemoveHistoricVideoDatasourceError([this.message = '']);
 }

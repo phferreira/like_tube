@@ -4,5 +4,5 @@ class GetAllFavoriteVideoRepositoryError implements IFailure {
   @override
   final String message;
 
-  GetAllFavoriteVideoRepositoryError([this.message = ""]);
+  GetAllFavoriteVideoRepositoryError([this.message = '']);
 }

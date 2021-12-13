@@ -4,5 +4,5 @@ class SetHistoricVideoDatasourceError implements IFailure {
   @override
   final String message;
 
-  SetHistoricVideoDatasourceError([this.message = ""]);
+  SetHistoricVideoDatasourceError([this.message = '']);
 }

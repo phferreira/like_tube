@@ -4,5 +4,5 @@ class SetFavoriteVideoRepositoryError implements IFailure {
   @override
   final String message;
 
-  SetFavoriteVideoRepositoryError([this.message = ""]);
+  SetFavoriteVideoRepositoryError([this.message = '']);
 }

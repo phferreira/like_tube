@@ -9,7 +9,7 @@ import 'home_store.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
-  const HomePage({Key? key, this.title = "Like Tube"}) : super(key: key);
+  const HomePage({Key? key, this.title = 'Like Tube'}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();

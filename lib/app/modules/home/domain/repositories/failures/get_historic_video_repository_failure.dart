@@ -4,5 +4,5 @@ class GetHistoricVideoRepositoryError implements IFailure {
   @override
   final String message;
 
-  GetHistoricVideoRepositoryError([this.message = ""]);
+  GetHistoricVideoRepositoryError([this.message = '']);
 }
