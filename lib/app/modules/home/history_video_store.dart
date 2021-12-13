@@ -27,9 +27,12 @@ class HistoryVideoStore extends NotifierStore<IFailure, List<Video>> {
     await _setHistoricVideoUsecase(video);
   }
 
-  void removeAll() async {
+  Future removeAll() async {
+    setLoading(true);
     for (Video video in state) {
       await _removeHistoricVideoUsecase(video);
     }
+    await getHistoryVideos();
+    setLoading(false);
   }
 }

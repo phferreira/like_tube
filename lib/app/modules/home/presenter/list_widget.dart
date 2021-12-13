@@ -34,8 +34,41 @@ class ListWidget {
     const Text(
       'Favoritos',
     ),
-    const Text(
-      'Historico',
+    Row(
+      children: [
+        Expanded(
+          flex: 5,
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              Text('Histórico'),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 5,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              PopupMenuButton(
+                icon: const Icon(Icons.list),
+                itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                  PopupMenuItem(
+                    child: const ListTile(
+                      title: Text('Remover todos'),
+                      leading: Icon(Icons.delete),
+                    ),
+                    onTap: () {
+                      historyVideoStore.removeAll;
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
     ),
   ];
 
