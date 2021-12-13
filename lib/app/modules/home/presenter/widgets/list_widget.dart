@@ -59,6 +59,7 @@ List<Widget> listWidgetBody = <Widget>[
   ScopedBuilder<HomeStore, IFailure, List<Video>>(
     store: homeStore,
     onState: (_, list) {
+      return GridListsWidget(gridList: list);
     },
     onError: (context, error) {
       return Container();
@@ -67,11 +68,13 @@ List<Widget> listWidgetBody = <Widget>[
   ScopedBuilder<FavoriteVideoStore, IFailure, List<Video>>(
     store: videoItemStore,
     onState: (_, list) {
+      return GridListsWidget(gridList: list);
     },
   ),
   ScopedBuilder<HistoryVideoStore, IFailure, List<Video>>(
     store: historyVideoStore,
     onState: (_, list) {
+      return GridListsWidget(gridList: list);
     },
   ),
 ];
