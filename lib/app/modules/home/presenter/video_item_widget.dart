@@ -31,15 +31,12 @@ class VideoItemWidget extends StatelessWidget {
                     builder: (context) => VideoPage(video: video),
                   ));
                 },
-                child: Hero(
-                  tag: video.id,
-                  child: Container(
-                    width: 200,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(video.url),
-                        fit: BoxFit.cover,
-                      ),
+                child: Container(
+                  width: 200,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(video.url),
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
