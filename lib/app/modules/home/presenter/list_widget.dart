@@ -14,55 +14,42 @@ HomeStore get homeStore => Modular.get<HomeStore>();
 FavoriteVideoStore get videoItemStore => Modular.get<FavoriteVideoStore>();
 HistoryVideoStore get historyVideoStore => Modular.get<HistoryVideoStore>();
 
-List<Widget> listWidgetMenu = <Widget>[
-  TextField(
-    controller: homeStore.pesquisarController,
-    decoration: InputDecoration(
-      labelText: 'Pesquisar',
-      labelStyle: const TextStyle(
-        color: Colors.white,
-      ),
-      suffixIcon: IconButton(
-        color: Colors.white,
-        onPressed: () => homeStore.getVideoByDescription(''),
-        icon: const Icon(Icons.search),
+List<AppBar> listWidgetMenu = <AppBar>[
+  AppBar(
+    title: TextField(
+      controller: homeStore.pesquisarController,
+      decoration: InputDecoration(
+        labelText: 'Pesquisar',
+        labelStyle: const TextStyle(
+          color: Colors.white,
+        ),
+        suffixIcon: IconButton(
+          color: Colors.white,
+          onPressed: () => homeStore.getVideoByDescription(''),
+          icon: const Icon(Icons.search),
+        ),
       ),
     ),
   ),
-  const Text(
-    'Favoritos',
+  AppBar(
+    title: const Text(
+      'Favoritos',
+    ),
   ),
-  Row(
-    children: [
-      Expanded(
-        flex: 5,
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text('Histórico'),
-          ],
-        ),
-      ),
-      Expanded(
-        flex: 5,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            PopupMenuButton(
-              icon: const Icon(Icons.list),
-              itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                PopupMenuItem(
-                  child: const ListTile(
-                    title: Text('Remover todos'),
-                    leading: Icon(Icons.delete),
-                  ),
-                  onTap: () => historyVideoStore.removeAll(),
-                ),
-              ],
+  AppBar(
+    title: const Text('Histórico'),
+    actions: <Widget>[
+      PopupMenuButton(
+        icon: const Icon(Icons.list),
+        itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+          PopupMenuItem(
+            child: const ListTile(
+              title: Text('Remover todos'),
+              leading: Icon(Icons.delete),
             ),
-          ],
-        ),
+            onTap: () => historyVideoStore.removeAll(),
+          ),
+        ],
       ),
     ],
   ),
