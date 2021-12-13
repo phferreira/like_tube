@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:like_tube/app/core/routes/routes.dart';
 import 'package:like_tube/app/modules/home/bottom_navigation_store.dart';
 import 'package:like_tube/app/modules/home/domain/usecases/implementation/get_all_favorite_video_usecase.dart';
 import 'package:like_tube/app/modules/home/domain/usecases/implementation/get_historic_video_usecase.dart';
@@ -13,6 +14,7 @@ import 'package:like_tube/app/modules/home/domain/usecases/implementation/set_fa
 import 'package:like_tube/app/modules/home/external/datasources/set_favorite_video_datasource.dart';
 import 'package:like_tube/app/modules/home/external/services/hive_database.dart';
 import 'package:like_tube/app/modules/home/favorite_video_store.dart';
+import 'package:like_tube/app/modules/home/history_video_store.dart';
 import 'package:like_tube/app/modules/home/infrastructure/repositories/get_all_favorite_video_repository.dart';
 import 'package:like_tube/app/modules/home/infrastructure/repositories/get_historic_video_repository.dart';
 import 'package:like_tube/app/modules/home/infrastructure/repositories/remove_historic_video_repository.dart';
@@ -35,6 +37,7 @@ class HomeModule extends Module {
     Bind.lazySingleton((i) => VideoItemStore()),
     Bind.lazySingleton((i) => BottomNavigationStore()),
     Bind.lazySingleton((i) => FavoriteVideoStore()),
+    Bind.lazySingleton((i) => HistoryVideoStore()),
     // Services
     Bind.lazySingleton((i) => CustomDio()),
     Bind.lazySingleton((i) => DioApiConnection(dio: i())),
@@ -65,6 +68,6 @@ class HomeModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ChildRoute(Modular.initialRoute, child: (_, args) => const HomePage()),
-    ModuleRoute('/video', module: VideoModule()),
+    ModuleRoute(Routes.video, module: VideoModule()),
   ];
 }
