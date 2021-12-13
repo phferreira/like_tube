@@ -57,7 +57,7 @@ List<Widget> listWidgetMenu = <Widget>[
                     title: Text('Remover todos'),
                     leading: Icon(Icons.delete),
                   ),
-                  onTap: () => historyVideoStore.removeAll,
+                  onTap: () => historyVideoStore.removeAll(),
                 ),
               ],
             ),
