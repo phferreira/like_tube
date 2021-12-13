@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:like_tube/app/modules/home/history_video_store.dart';
 
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:like_tube/app/modules/home/domain/entities/video.dart';
@@ -15,6 +16,7 @@ class VideoPage extends StatefulWidget {
 
 class _VideoPageState extends State<VideoPage> {
   late YoutubePlayerController _controller;
+  final HistoryVideoStore _historyVideoStore = Modular.get<HistoryVideoStore>();
 
   @override
   void initState() {
@@ -26,6 +28,7 @@ class _VideoPageState extends State<VideoPage> {
         controlsVisibleAtStart: true,
       ),
     );
+    _historyVideoStore.setHistoryVideo(widget.video);
     super.initState();
   }
 
