@@ -1,6 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:like_tube/app/core/routes/routes.dart';
-import 'package:like_tube/app/modules/home/bottom_navigation_store.dart';
 import 'package:like_tube/app/modules/home/domain/usecases/implementation/get_all_favorite_video_usecase.dart';
 import 'package:like_tube/app/modules/home/domain/usecases/implementation/get_historic_video_usecase.dart';
 import 'package:like_tube/app/modules/home/domain/usecases/implementation/get_video_by_description_usecase.dart';
@@ -16,17 +15,18 @@ import 'package:like_tube/app/modules/home/external/datasources/set_historic_vid
 import 'package:like_tube/app/modules/home/external/services/custom_dio.dart';
 import 'package:like_tube/app/modules/home/external/services/dio_api_connection.dart';
 import 'package:like_tube/app/modules/home/external/services/hive_database.dart';
-import 'package:like_tube/app/modules/home/favorite_video_store.dart';
-import 'package:like_tube/app/modules/home/history_video_store.dart';
-import 'package:like_tube/app/modules/home/home_page.dart';
-import 'package:like_tube/app/modules/home/home_store.dart';
 import 'package:like_tube/app/modules/home/infrastructure/repositories/get_all_favorite_video_repository.dart';
 import 'package:like_tube/app/modules/home/infrastructure/repositories/get_historic_video_repository.dart';
 import 'package:like_tube/app/modules/home/infrastructure/repositories/get_video_by_description_repository.dart';
 import 'package:like_tube/app/modules/home/infrastructure/repositories/remove_historic_video_repository.dart';
 import 'package:like_tube/app/modules/home/infrastructure/repositories/set_favorite_video_repository.dart';
 import 'package:like_tube/app/modules/home/infrastructure/repositories/set_historic_video_repository.dart';
-import 'package:like_tube/app/modules/home/video_item_store.dart';
+import 'package:like_tube/app/modules/home/presenter/stores/bottom_navigation_store.dart';
+import 'package:like_tube/app/modules/home/presenter/stores/favorite_video_store.dart';
+import 'package:like_tube/app/modules/home/presenter/stores/history_video_store.dart';
+import 'package:like_tube/app/modules/home/presenter/stores/home_store.dart';
+import 'package:like_tube/app/modules/home/presenter/stores/video_item_store.dart';
+import 'package:like_tube/app/modules/home/presenter/widgets/home_page.dart';
 import 'package:like_tube/app/modules/video/video_module.dart';
 
 class HomeModule extends Module {

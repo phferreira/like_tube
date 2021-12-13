@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
-import 'package:like_tube/app/modules/home/bottom_navigation_store.dart';
-import 'package:like_tube/app/modules/home/home_store.dart';
+import 'package:like_tube/app/modules/home/presenter/stores/bottom_navigation_store.dart';
+import 'package:like_tube/app/modules/home/presenter/stores/home_store.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
   const BottomNavigationBarWidget({

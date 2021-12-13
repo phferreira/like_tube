@@ -22,7 +22,7 @@ class DioApiConnection extends IHttp {
           'key': apiKey,
           'part': 'snippet,id',
           'order': 'date',
-          'maxResults': 15,
+          'maxResults': 100,
           'q': description,
         },
       );

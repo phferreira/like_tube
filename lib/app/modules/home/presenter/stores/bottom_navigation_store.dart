@@ -1,8 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
-import 'package:like_tube/app/modules/home/favorite_video_store.dart';
-import 'package:like_tube/app/modules/home/history_video_store.dart';
+import 'package:like_tube/app/modules/home/presenter/stores/favorite_video_store.dart';
+import 'package:like_tube/app/modules/home/presenter/stores/history_video_store.dart';
 
 class BottomNavigationStore extends NotifierStore<IFailure, int> {
   BottomNavigationStore() : super(0);

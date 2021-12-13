@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
-import 'package:like_tube/app/modules/home/bottom_navigation_store.dart';
-import 'package:like_tube/app/modules/home/home_store.dart';
-import 'package:like_tube/app/modules/home/presenter/botton_navigation_bar_widget.dart';
-import 'package:like_tube/app/modules/home/presenter/list_widget.dart';
+import 'package:like_tube/app/modules/home/presenter/stores/bottom_navigation_store.dart';
+import 'package:like_tube/app/modules/home/presenter/stores/home_store.dart';
+import 'package:like_tube/app/modules/home/presenter/widgets/botton_navigation_bar_widget.dart';
+import 'package:like_tube/app/modules/home/presenter/widgets/list_widget.dart';
 
 class HomePage extends StatefulWidget {
   final String title;

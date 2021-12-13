@@ -4,7 +4,7 @@ import 'package:like_tube/app/core/errors/i_failure.dart';
 import 'package:like_tube/app/modules/home/domain/entities/video.dart';
 import 'package:like_tube/app/modules/home/domain/usecases/i_set_favorite_video_usecase.dart';
 import 'package:like_tube/app/modules/home/domain/usecases/implementation/set_favorite_video_usecase.dart';
-import 'package:like_tube/app/modules/home/favorite_video_store.dart';
+import 'package:like_tube/app/modules/home/presenter/stores/favorite_video_store.dart';
 
 class VideoItemStore extends NotifierStore<IFailure, Video> {
   VideoItemStore() : super(Video.noProperties());

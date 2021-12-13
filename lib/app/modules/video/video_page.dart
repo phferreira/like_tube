@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:like_tube/app/modules/home/domain/entities/video.dart';
-import 'package:like_tube/app/modules/home/history_video_store.dart';
+import 'package:like_tube/app/modules/home/presenter/stores/history_video_store.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoPage extends StatefulWidget {
