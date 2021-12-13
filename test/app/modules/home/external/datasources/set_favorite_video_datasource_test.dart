@@ -12,13 +12,12 @@ class DatabaseMock extends Mock implements IDataBase {}
 void main() {
   final database = DatabaseMock();
   final datasource = SetFavoriteVideoDatasource(database: database);
-  final video = Video.noProperties();
-  final List<Video> list = [];
+  final video = Video(id: '789', title: 'Titulo 798', url: 'http://teste.com');
+  final List<dynamic> list = [];
 
   setUp(() {
     video.favorite = false;
-    list.add(Video.noProperties());
-    list.last.favorite = true;
+    list.add(Video(id: '789', title: 'Titulo 789', url: 'http://teste.com', favorite: true).toJson());
   });
 
   test('Deve retornar !favorite em update', () async {

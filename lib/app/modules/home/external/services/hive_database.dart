@@ -123,8 +123,8 @@ class HiveDatabase extends IDataBase {
           });
 
           box.put(_result.values.first, jsonEncode(_result));
-          _resultList.add(_result);
         }
+        _resultList.addAll((await select(table, [], where)).fold((l) => [], (r) => r));
         return Right(_resultList);
       } else {
         return Left(DataBaseNotUpdateError());

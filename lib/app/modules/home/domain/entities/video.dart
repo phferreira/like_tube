@@ -30,10 +30,10 @@ class Video implements IVideo {
 
   Map<String, dynamic> toMap() {
     return {
-      'bl_favorite': '$favorite',
       'cd_id': id,
       'tx_title': title,
       'tx_url': url,
+      'bl_favorite': '$favorite',
     };
   }
 

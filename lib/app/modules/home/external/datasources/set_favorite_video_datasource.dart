@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:like_tube/app/core/connections/i_database.dart';
 import 'package:like_tube/app/core/enum/database_result_enum.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
@@ -34,7 +32,7 @@ class SetFavoriteVideoDatasource extends ISetFavoriteVideoDatasource {
       result.add(
         (await database.update(_table, _columns, _where)).fold((l) => DatabaseResultEnum.notUpdated, (r) {
           for (final dynamic element in r) {
-            databaseResult.add(Video.fromJson(jsonEncode(element)));
+            databaseResult.add(Video.fromJson(element));
           }
           return DatabaseResultEnum.updated;
         }),
@@ -43,7 +41,7 @@ class SetFavoriteVideoDatasource extends ISetFavoriteVideoDatasource {
         result.add(
           (await database.insert(_table, _columns)).fold((l) => DatabaseResultEnum.notInserted, (r) {
             for (final dynamic element in r) {
-              databaseResult.add(Video.fromJson(jsonDecode(jsonEncode(element))));
+              databaseResult.add(Video.fromJson(element));
             }
             return DatabaseResultEnum.inserted;
           }),
