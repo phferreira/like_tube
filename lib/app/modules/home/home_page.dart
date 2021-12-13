@@ -30,22 +30,15 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: ScopedBuilder<BottomNavigationStore, IFailure, int>(
-          onLoading: (_) => const SizedBox(),
-          onState: (_, index) {
-            return listWidgetMenu.elementAt(index);
-          },
-        ),
-      ),
-      body: ScopedBuilder<BottomNavigationStore, IFailure, int>(
-        onLoading: (_) => const SizedBox(),
-        onState: (_, index) {
-          return listWidgetBody.elementAt(index);
-        },
-      ),
-      bottomNavigationBar: const BottomNavigationBarWidget(),
+    return ScopedBuilder<BottomNavigationStore, IFailure, int>(
+      onLoading: (_) => const SizedBox(),
+      onState: (context, index) {
+        return Scaffold(
+          appBar: listWidgetMenu.elementAt(bottomNavigationStore.getSelectedIndex()),
+          body: listWidgetBody.elementAt(index),
+          bottomNavigationBar: const BottomNavigationBarWidget(),
+        );
+      },
     );
   }
 }
