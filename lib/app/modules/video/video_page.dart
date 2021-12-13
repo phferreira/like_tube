@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:like_tube/app/modules/home/history_video_store.dart';
-
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:like_tube/app/modules/home/domain/entities/video.dart';
+import 'package:like_tube/app/modules/home/history_video_store.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoPage extends StatefulWidget {
   final Video video;
@@ -23,8 +22,6 @@ class _VideoPageState extends State<VideoPage> {
     _controller = YoutubePlayerController(
       initialVideoId: widget.video.id,
       flags: const YoutubePlayerFlags(
-        autoPlay: true,
-        mute: false,
         controlsVisibleAtStart: true,
       ),
     );

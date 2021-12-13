@@ -16,14 +16,14 @@ class SetHistoricVideoDatasource extends ISetHistoricVideoDatasource {
   Future<Either<IFailure, Video>> call(Video videoParam) async {
     const String _table = 'tb_historicvideos';
 
-    ColumnType _columns = {
+    final ColumnType _columns = {
       'cd_id': videoParam.id,
       'tx_title': videoParam.title,
       'tx_url': videoParam.url,
     };
 
     try {
-      List<Video> _databaseResult = <Video>[];
+      final List<Video> _databaseResult = <Video>[];
 
       (await database.insert(_table, _columns)).fold((l) => throw l, (r) {
         return r.toList().forEach((element) {

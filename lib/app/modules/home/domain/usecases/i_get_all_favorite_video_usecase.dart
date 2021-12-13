@@ -5,5 +5,5 @@ import 'package:like_tube/app/modules/home/domain/entities/video.dart';
 
 abstract class IGetAllFavoriteVideoUsecase extends IUseCase<List<Video>, void> {
   @override
-  Future<Either<IFailure, List<Video>>> call([param]);
+  Future<Either<IFailure, List<Video>>> call([void param]);
 }

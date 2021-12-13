@@ -16,34 +16,38 @@ class SetFavoriteVideoDatasource extends ISetFavoriteVideoDatasource {
   @override
   Future<List<DatabaseResultEnum>> call(Video video) async {
     const String _table = 'tb_favoritevideos';
-    ColumnType _columns = {
+    final ColumnType _columns = {
       'cd_id': video.id,
       'tx_title': video.title,
       'tx_url': video.url,
       'bl_favorite': (!video.favorite).toString(),
     };
 
-    WhereType _where = {
+    final WhereType _where = {
       'cd_id': [video.id],
     };
 
     try {
-      List<DatabaseResultEnum> result = [];
-      List<Video> databaseResult = [];
+      final List<DatabaseResultEnum> result = [];
+      final List<Video> databaseResult = [];
 
-      result.add((await database.update(_table, _columns, _where)).fold((l) => DatabaseResultEnum.notUpdated, (r) {
-        for (dynamic element in r) {
-          databaseResult.add(Video.fromJson(jsonEncode(element)));
-        }
-        return DatabaseResultEnum.updated;
-      }));
-      if (result.last == DatabaseResultEnum.notUpdated) {
-        result.add((await database.insert(_table, _columns)).fold((l) => DatabaseResultEnum.notInserted, (r) {
-          for (dynamic element in r) {
-            databaseResult.add(Video.fromJson(jsonDecode(jsonEncode(element))));
+      result.add(
+        (await database.update(_table, _columns, _where)).fold((l) => DatabaseResultEnum.notUpdated, (r) {
+          for (final dynamic element in r) {
+            databaseResult.add(Video.fromJson(jsonEncode(element)));
           }
-          return DatabaseResultEnum.inserted;
-        }));
+          return DatabaseResultEnum.updated;
+        }),
+      );
+      if (result.last == DatabaseResultEnum.notUpdated) {
+        result.add(
+          (await database.insert(_table, _columns)).fold((l) => DatabaseResultEnum.notInserted, (r) {
+            for (final dynamic element in r) {
+              databaseResult.add(Video.fromJson(jsonDecode(jsonEncode(element))));
+            }
+            return DatabaseResultEnum.inserted;
+          }),
+        );
       }
       if (databaseResult.isNotEmpty) {
         video.favorite = databaseResult.last.favorite;

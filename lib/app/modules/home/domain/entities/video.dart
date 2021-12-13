@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'i_video.dart';
+import 'package:like_tube/app/modules/home/domain/entities/i_video.dart';
 
 class Video implements IVideo {
   @override
@@ -39,7 +39,7 @@ class Video implements IVideo {
 
   factory Video.fromMap(Map<String, dynamic> map) {
     return Video(
-      favorite: map['bl_favorite'].toString() == 'true' ? true : false,
+      favorite: map['bl_favorite'].toString() == 'true',
       id: map['cd_id'] ?? '',
       title: map['tx_title'] ?? '',
       url: map['tx_url'] ?? '',

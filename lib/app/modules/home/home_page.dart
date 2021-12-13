@@ -3,9 +3,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
 import 'package:like_tube/app/modules/home/bottom_navigation_store.dart';
+import 'package:like_tube/app/modules/home/home_store.dart';
 import 'package:like_tube/app/modules/home/presenter/botton_navigation_bar_widget.dart';
 import 'package:like_tube/app/modules/home/presenter/list_widget.dart';
-import 'home_store.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -35,14 +35,14 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
         title: ScopedBuilder<BottomNavigationStore, IFailure, int>(
           onLoading: (_) => const SizedBox(),
           onState: (_, index) {
-            return ListWidget.listWidgetMenu.elementAt(index);
+            return listWidgetMenu.elementAt(index);
           },
         ),
       ),
       body: ScopedBuilder<BottomNavigationStore, IFailure, int>(
         onLoading: (_) => const SizedBox(),
         onState: (_, index) {
-          return ListWidget.listWidgetBody.elementAt(index);
+          return listWidgetBody.elementAt(index);
         },
       ),
       bottomNavigationBar: const BottomNavigationBarWidget(),

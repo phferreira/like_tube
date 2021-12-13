@@ -7,8 +7,7 @@ import 'package:like_tube/app/modules/home/domain/usecases/i_remove_historic_vid
 import 'package:like_tube/app/modules/home/domain/usecases/i_set_historic_video_usecase.dart';
 import 'package:like_tube/app/modules/home/domain/usecases/implementation/get_historic_video_usecase.dart';
 import 'package:like_tube/app/modules/home/domain/usecases/implementation/remove_historic_video_usecase.dart';
-
-import 'domain/usecases/implementation/set_historic_video_usecase.dart';
+import 'package:like_tube/app/modules/home/domain/usecases/implementation/set_historic_video_usecase.dart';
 
 class HistoryVideoStore extends NotifierStore<IFailure, List<Video>> {
   HistoryVideoStore() : super([]);
@@ -29,7 +28,7 @@ class HistoryVideoStore extends NotifierStore<IFailure, List<Video>> {
 
   Future removeAll() async {
     setLoading(true);
-    for (Video video in state) {
+    for (final Video video in state) {
       await _removeHistoricVideoUsecase(video);
     }
     await getHistoryVideos();

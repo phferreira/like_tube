@@ -10,7 +10,7 @@ class GetAllFavoriteVideoUsecase extends IGetAllFavoriteVideoUsecase {
   GetAllFavoriteVideoUsecase({required this.repository});
 
   @override
-  Future<Either<IFailure, List<Video>>> call([param]) {
+  Future<Either<IFailure, List<Video>>> call([void param]) {
     return repository();
   }
 }

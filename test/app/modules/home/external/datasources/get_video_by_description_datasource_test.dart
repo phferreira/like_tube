@@ -9,7 +9,7 @@ import 'package:mocktail/mocktail.dart';
 class ConnectionMock extends Mock implements IHttp {}
 
 void main() {
-  IHttp connection = ConnectionMock();
+  final IHttp connection = ConnectionMock();
 
   test('Deve retornar um Right(List<Video>)', () async {
     when(() => connection.get(any())).thenAnswer((_) async => const Right([]));

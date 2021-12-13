@@ -27,9 +27,11 @@ class VideoItemWidget extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  Modular.to.push(MaterialPageRoute(
-                    builder: (context) => VideoPage(video: video),
-                  ));
+                  Modular.to.push(
+                    MaterialPageRoute(
+                      builder: (context) => VideoPage(video: video),
+                    ),
+                  );
                 },
                 child: Container(
                   width: 200,

@@ -13,6 +13,6 @@ class GetVideoByDescriptionUsecase extends IGetVideoByDescriptionUsecase {
 
   @override
   Future<Either<IFailure, List<Video>>> call(String param) async {
-    return await repository(param);
+    return repository(param);
   }
 }

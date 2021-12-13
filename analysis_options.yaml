@@ -1,4 +1,13 @@
-include: package:flutter_lints/flutter.yaml
+# include: package:flutter_lints/flutter.yaml
+include: package:lint/analysis_options.yaml
+
+analyzer:
+  strong-mode:
+    implicit-casts: true
+  errors:
+    missing_required_param: warning
+    missing_return: warning
+    todo: ignore
 
 linter:
   rules:
@@ -83,4 +92,5 @@ linter:
     use_rethrow_when_possible: true
     void_checks: true
     package_names: true
+    avoid_dynamic_calls: false
 

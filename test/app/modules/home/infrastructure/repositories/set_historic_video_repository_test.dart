@@ -13,7 +13,7 @@ class SetHistoricVideoDatasourceMock extends Mock implements ISetHistoricVideoDa
 void main() {
   final ISetHistoricVideoDatasource datasource = SetHistoricVideoDatasourceMock();
   final ISetHistoricVideoRepository repository = SetHistoricVideoRepository(datasource: datasource);
-  Video video = Video.noProperties();
+  final Video video = Video.noProperties();
 
   test('Deve retornar uma Right(Video)', () async {
     when(() => datasource(video)).thenAnswer((_) async => Right(video));

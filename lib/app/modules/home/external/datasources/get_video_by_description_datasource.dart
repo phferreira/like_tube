@@ -13,6 +13,6 @@ class GetVideoByDescriptionDataSource extends IGetVideoByDescriptionDataSource {
 
   @override
   Future<Either<IFailure, List<Video>>> call(String param) async {
-    return await connection.get(param);
+    return connection.get(param);
   }
 }

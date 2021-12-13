@@ -13,7 +13,7 @@ void main() {
   final database = DatabaseMock();
   final datasource = SetFavoriteVideoDatasource(database: database);
   final video = Video.noProperties();
-  List<Video> list = [];
+  final List<Video> list = [];
 
   setUp(() {
     video.favorite = false;

@@ -10,7 +10,7 @@ class HomeStore extends NotifierStore<IFailure, List<Video>> {
   final IGetVideoByDescriptionUsecase _usecase = Modular.get();
   final pesquisarController = TextEditingController();
 
-  void getVideoByDescription(String param) async {
+  Future getVideoByDescription(String param) async {
     update((await _usecase(pesquisarController.text)).getRight().getOrElse(() => []));
   }
 

@@ -1,21 +1,20 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:like_tube/app/core/connections/i_database.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
+import 'package:like_tube/app/modules/home/domain/entities/video.dart';
 import 'package:like_tube/app/modules/home/external/datasources/set_historic_video_datasource.dart';
 import 'package:like_tube/app/modules/home/external/services/failures/database_failure.dart';
 import 'package:like_tube/app/modules/home/infrastructure/datasources/i_set_historic_video_datasource.dart';
 import 'package:mocktail/mocktail.dart';
-
-import 'package:like_tube/app/core/connections/i_database.dart';
-import 'package:like_tube/app/modules/home/domain/entities/video.dart';
 
 class DataBaseMock extends Mock implements IDataBase {}
 
 void main() {
   final IDataBase database = DataBaseMock();
   final ISetHistoricVideoDatasource datasource = SetHistoricVideoDatasource(database: database);
-  List<dynamic> _listResult = [];
-  Video video = Video(id: '987', title: 'Titulo 987', url: 'http://teste.com');
+  final List<dynamic> _listResult = [];
+  final Video video = Video(id: '987', title: 'Titulo 987', url: 'http://teste.com');
 
   setUpAll(() {
     _listResult.add(video.toJson());

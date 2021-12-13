@@ -13,7 +13,7 @@ class RemoveHistoricVideoDatasourceMock extends Mock implements IRemoveHistoricV
 void main() {
   final IRemoveHistoricVideoDatasource datasource = RemoveHistoricVideoDatasourceMock();
   final IRemoveHistoricVideoRepository repository = RemoveHistoricVideoRepository(datasource: datasource);
-  Video video = Video.noProperties();
+  final Video video = Video.noProperties();
 
   test('Deve retornar um Right(Video) se removeu', () async {
     when(() => datasource(video)).thenAnswer((_) async => Right(video));

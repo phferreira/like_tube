@@ -1,11 +1,10 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
-import 'package:like_tube/app/modules/home/external/services/hive_database.dart';
 import 'package:like_tube/app/core/types/query_type.dart';
+import 'package:like_tube/app/modules/home/external/services/hive_database.dart';
 
 void main() {
   final hiveDatabase = HiveDatabase();
@@ -36,17 +35,17 @@ void main() {
   test('Deve inserir registro', () async {
     final _result = await hiveDatabase.insert(_table, getColumn(9999));
     expect(_result, isA<Right<IFailure, List>>());
-    List<dynamic> _resultConfirm = _result.fold((l) => [], (r) => r);
+    final List<dynamic> _resultConfirm = _result.fold((l) => [], (r) => r);
     expect(jsonDecode(_resultConfirm[0])['cd_id'].toString(), '9999');
   });
 
   test('Deve retornar uma lista somente para os codigos do where e somente para as columns selecionadas cd_id ', () async {
-    ColumnsSelectType _columns = [
+    final ColumnsSelectType _columns = [
       'cd_id',
       'bl_favorite',
     ];
 
-    WhereType _where = {
+    final WhereType _where = {
       'cd_id': ['3', '8'],
     };
     final result = await hiveDatabase.select(_table, _columns, _where);
@@ -55,7 +54,7 @@ void main() {
   });
 
   test('Deve retornar uma lista somente para os codigos do where e somente para as columns selecionadas bl_favorite ', () async {
-    WhereType _where = {
+    final WhereType _where = {
       'bl_favorite': ['false'],
     };
     final result = await hiveDatabase.select(_table, [], _where);
@@ -64,12 +63,12 @@ void main() {
   });
 
   test('Deve retornar uma lista somente para os codigos do where que existem e somente para as columns selecionadas cd_id ', () async {
-    ColumnsSelectType _columns = [
+    final ColumnsSelectType _columns = [
       'cd_id',
       'bl_favorite',
     ];
 
-    WhereType _where = {
+    final WhereType _where = {
       'cd_id': ['3', '12'],
     };
     final result = await hiveDatabase.select(_table, _columns, _where);
@@ -78,12 +77,12 @@ void main() {
   });
 
   test('Deve retornar uma lista vazia caso nao encontre registros', () async {
-    ColumnsSelectType _columns = [
+    final ColumnsSelectType _columns = [
       'cd_id',
       'bl_favorite',
     ];
 
-    WhereType _where = {
+    final WhereType _where = {
       'cd_id': ['123', '124'],
     };
     final _result = await hiveDatabase.select(_table, _columns, _where);
@@ -93,7 +92,7 @@ void main() {
   });
 
   test('Deve remover os registros informados pelo where cd_id', () async {
-    WhereType _where = {
+    final WhereType _where = {
       'cd_id': ['2', '6'],
     };
     final _result = await hiveDatabase.delete(_table, _where);
@@ -106,7 +105,7 @@ void main() {
   });
 
   test('Deve remover os registros informados pelo where bl_favorite', () async {
-    WhereType _where = {
+    final WhereType _where = {
       'bl_favorite': ['false'],
     };
     final _result = await hiveDatabase.delete(_table, _where);
@@ -129,11 +128,11 @@ void main() {
   });
 
   test('Deve Atualizar os registros informados pelo where bl_favorite', () async {
-    WhereType _where = {
+    final WhereType _where = {
       'bl_favorite': ['false'],
     };
 
-    ColumnType _columns = {
+    final ColumnType _columns = {
       'tx_title': 'update',
     };
 
@@ -141,18 +140,18 @@ void main() {
     expect(_result, isA<Right<IFailure, List>>());
     expect(_result.getRight().getOrElse(() => []).length, 5);
 
-    List<dynamic> _resultConfirm = (await hiveDatabase.select(_table, [], _where)).fold((l) => [], (r) => r);
+    final List<dynamic> _resultConfirm = (await hiveDatabase.select(_table, [], _where)).fold((l) => [], (r) => r);
 
     expect(_resultConfirm.length, 5);
     expect(jsonDecode(_resultConfirm[0])['tx_title'].toString(), 'update');
   });
 
   test('Deve Atualizar os registros informados pelo where tx_title = title 1 e title 2', () async {
-    WhereType _where = {
+    final WhereType _where = {
       'tx_title': ['titulo 1', 'titulo 2'],
     };
 
-    ColumnType _columns = {
+    final ColumnType _columns = {
       'bl_favorite': 'true',
     };
 
@@ -160,7 +159,7 @@ void main() {
     expect(_result, isA<Right<IFailure, List>>());
     expect(_result.getRight().getOrElse(() => []).length, 2);
 
-    List<dynamic> _resultConfirm = (await hiveDatabase.select(_table, [], _where)).fold((l) => [], (r) => r);
+    final List<dynamic> _resultConfirm = (await hiveDatabase.select(_table, [], _where)).fold((l) => [], (r) => r);
 
     expect(_resultConfirm.length, 2);
     expect(jsonDecode(_resultConfirm[0])['bl_favorite'].toString(), 'true');
@@ -168,12 +167,12 @@ void main() {
   });
 
   test('Deve Atualizar os registros informados pelo where bl_favotire = true cd_id = 1,2,3 ', () async {
-    WhereType _where = {
+    final WhereType _where = {
       'bl_favorite': ['true'],
       'cd_id': ['1', '2', '3'],
     };
 
-    ColumnType _columns = {
+    final ColumnType _columns = {
       'tx_title': 'update',
     };
 
@@ -181,7 +180,7 @@ void main() {
     expect(_result, isA<Right<IFailure, List>>());
     expect(_result.getRight().getOrElse(() => []).length, 1);
 
-    List<dynamic> _resultConfirm = (await hiveDatabase.select(_table, [], _where)).fold((l) => [], (r) => r);
+    final List<dynamic> _resultConfirm = (await hiveDatabase.select(_table, [], _where)).fold((l) => [], (r) => r);
 
     expect(_resultConfirm.length, 1);
     expect(jsonDecode(_resultConfirm[0])['tx_title'].toString(), 'update');
@@ -192,11 +191,5 @@ void main() {
 
     final _result = await hiveDatabase.select(_table, [], {});
     expect(_result, isA<Left<IFailure, List>>());
-    // expect(_result.getRight().getOrElse(() => []).length, 0);
-
-    // List<dynamic> _resultConfirm = (await hiveDatabase.select(_table, [], {})).fold((l) => [], (r) => r);
-
-    // expect(_resultConfirm.length, 1);
-    // expect(jsonDecode(_resultConfirm[0])['tx_title'].toString(), 'update');
   });
 }

@@ -15,7 +15,7 @@ class GetHistoricVideoDatasource extends IGetHistoricVideoDatasource {
     const String _table = 'tb_historicvideos';
 
     try {
-      List<Video> _databaseResult = <Video>[];
+      final List<Video> _databaseResult = <Video>[];
 
       (await database.select(_table, [], {})).fold((l) => throw l, (r) {
         return r.toList().forEach((element) {

@@ -9,7 +9,7 @@ import 'package:mocktail/mocktail.dart';
 class GetVideoByDescriptionDataSourceMock extends Mock implements IGetVideoByDescriptionDataSource {}
 
 void main() {
-  IGetVideoByDescriptionDataSource datasourceMock = GetVideoByDescriptionDataSourceMock();
+  final IGetVideoByDescriptionDataSource datasourceMock = GetVideoByDescriptionDataSourceMock();
 
   test('Deve retornar um Right(List<Video>)', () async {
     when(() => datasourceMock(any())).thenAnswer((_) async => const Right([]));

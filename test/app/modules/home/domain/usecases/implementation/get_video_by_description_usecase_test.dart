@@ -9,7 +9,7 @@ import 'package:mocktail/mocktail.dart';
 class GetVideoByDescriptionRepositoryMock extends Mock implements IGetVideoByDescriptionRepository {}
 
 void main() {
-  IGetVideoByDescriptionRepository repositoryMock = GetVideoByDescriptionRepositoryMock();
+  final IGetVideoByDescriptionRepository repositoryMock = GetVideoByDescriptionRepositoryMock();
 
   test('Deve retornar um Right()', () async {
     when(() => repositoryMock(any())).thenAnswer((_) async => const Right([]));
