@@ -16,17 +16,17 @@ void main() {
 
   test('Deve retornar uma lista de Video', () async {
     when(() => repository()).thenAnswer((_) async => const Right(<Video>[]));
-    final _result = await usecase();
+    final result = await usecase();
 
-    expect(_result, isA<Right<IFailure, List<Video>>>());
+    expect(result, isA<Right<IFailure, List<Video>>>());
     verify(() => repository());
   });
 
   test('Deve retornar um IFailure', () async {
     when(() => repository()).thenAnswer((_) async => Left(GetHistoricVideoRepositoryError()));
-    final _result = await usecase();
+    final result = await usecase();
 
-    expect(_result, isA<Left<IFailure, List<Video>>>());
+    expect(result, isA<Left<IFailure, List<Video>>>());
     verify(() => repository());
   });
 }

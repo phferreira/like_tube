@@ -13,26 +13,26 @@ class DataBaseMock extends Mock implements IDataBase {}
 void main() {
   final IDataBase database = DataBaseMock();
   final IGetHistoricVideoDatasource datasource = GetHistoricVideoDatasource(database: database);
-  final List<dynamic> _listResult = [];
+  final List<dynamic> listResult = [];
 
   setUpAll(() {
-    final Video _video = Video(id: '100', title: 'Titulo 01', url: 'http://teste.com', favorite: true);
-    _listResult.add(_video.toJson());
+    final Video video = Video(id: '100', title: 'Titulo 01', url: 'http://teste.com', favorite: true);
+    listResult.add(video.toJson());
   });
 
   test('Deve retornar uma List<Video>', () async {
-    when(() => database.select(any(), any(), any())).thenAnswer((_) async => Right(_listResult));
-    final _result = await datasource();
+    when(() => database.select(any(), any(), any())).thenAnswer((_) async => Right(listResult));
+    final result = await datasource();
 
-    expect(_result, isA<Right<IFailure, List<Video>>>());
+    expect(result, isA<Right<IFailure, List<Video>>>());
     verify(() => database.select(any(), any(), any()));
   });
 
   test('Deve retornar uma quando database', () async {
     when(() => database.select(any(), any(), any())).thenThrow(DataBaseError());
-    final _result = await datasource();
+    final result = await datasource();
 
-    expect(_result, isA<Left<IFailure, List<Video>>>());
+    expect(result, isA<Left<IFailure, List<Video>>>());
     verify(() => database.select(any(), any(), any()));
   });
 }

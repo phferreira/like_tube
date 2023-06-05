@@ -10,9 +10,9 @@ class VideoItemWidget extends StatelessWidget {
   final Video video;
 
   const VideoItemWidget({
-    Key? key,
+    super.key,
     required this.video,
-  }) : super(key: key);
+  });
 
   VideoItemStore get store => Modular.get<VideoItemStore>();
 
@@ -46,10 +46,10 @@ class VideoItemWidget extends StatelessWidget {
               Positioned(
                 top: 10,
                 child: ScopedBuilder<VideoItemStore, IFailure, Video>(
+                  store: store,
                   onLoading: (_) {
                     return const SizedBox();
                   },
-                  store: store,
                   onState: (_, video1) {
                     return IconButton(
                       iconSize: 40,

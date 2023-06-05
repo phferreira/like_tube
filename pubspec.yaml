@@ -6,29 +6,30 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.14.0 <3.0.0"
+  sdk: ">=3.0.3 < 4.0.0"
 
 dependencies:
   cupertino_icons: ^1.0.2
-  dio: ^4.0.4
+  dio: ^5.1.2
   flutter:
     sdk: flutter
-  flutter_modular: ^4.2.0
+  flutter_modular: ^5.0.3
   flutter_triple: ^1.2.5
-  fpdart: ^0.0.12
+  fpdart: ^0.6.0
   hive: ^2.0.4
   hive_flutter: ^1.1.0
-  lint: ^1.8.1
-  mocktail: ^0.1.4
+  lint: ^2.1.2
+  mocktail: ^0.3.0
+  modular_triple_bind: ^1.0.0
   path_provider: ^2.0.8
   youtube_player_flutter: ^8.0.0
 
 dev_dependencies:
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
-  modular_test: ^1.0.1+1
-  triple_test: ^0.0.8
+  modular_test: ^2.0.0
+  triple_test: ^1.0.0+1
 
 flutter:
   uses-material-design: true

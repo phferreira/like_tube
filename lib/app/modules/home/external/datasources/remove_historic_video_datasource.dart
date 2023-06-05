@@ -14,21 +14,21 @@ class RemoveHistoricVideoDatasource extends IRemoveHistoricVideoDatasource {
 
   @override
   Future<Either<IFailure, Video>> call(Video videoParam) async {
-    const String _table = 'tb_historicvideos';
+    const String table = 'tb_historicvideos';
 
-    final WhereType _where = {
+    final WhereType where = {
       'cd_id': [videoParam.id],
     };
 
     try {
-      final List<Video> _databaseResult = <Video>[];
+      final List<Video> databaseResult = <Video>[];
 
-      (await database.delete(_table, _where)).fold((l) => throw l, (r) {
+      (await database.delete(table, where)).fold((l) => throw l, (r) {
         return r.toList().forEach((element) {
-          _databaseResult.add(Video.fromJson(element.toString()));
+          databaseResult.add(Video.fromJson(element.toString()));
         });
       });
-      return Right(_databaseResult.last);
+      return Right(databaseResult.last);
     } on IFailure catch (e) {
       return Left(e);
     } catch (e) {

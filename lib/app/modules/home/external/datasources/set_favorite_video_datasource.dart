@@ -13,15 +13,15 @@ class SetFavoriteVideoDatasource extends ISetFavoriteVideoDatasource {
 
   @override
   Future<List<DatabaseResultEnum>> call(Video video) async {
-    const String _table = 'tb_favoritevideos';
-    final ColumnType _columns = {
+    const String table = 'tb_favoritevideos';
+    final ColumnType columns = {
       'cd_id': video.id,
       'tx_title': video.title,
       'tx_url': video.url,
       'bl_favorite': (!video.favorite).toString(),
     };
 
-    final WhereType _where = {
+    final WhereType where = {
       'cd_id': [video.id],
     };
 
@@ -30,7 +30,7 @@ class SetFavoriteVideoDatasource extends ISetFavoriteVideoDatasource {
       final List<Video> databaseResult = [];
 
       result.add(
-        (await database.update(_table, _columns, _where)).fold((l) => DatabaseResultEnum.notUpdated, (r) {
+        (await database.update(table, columns, where)).fold((l) => DatabaseResultEnum.notUpdated, (r) {
           for (final dynamic element in r) {
             databaseResult.add(Video.fromJson(element));
           }
@@ -39,7 +39,7 @@ class SetFavoriteVideoDatasource extends ISetFavoriteVideoDatasource {
       );
       if (result.last == DatabaseResultEnum.notUpdated) {
         result.add(
-          (await database.insert(_table, _columns)).fold((l) => DatabaseResultEnum.notInserted, (r) {
+          (await database.insert(table, columns)).fold((l) => DatabaseResultEnum.notInserted, (r) {
             for (final dynamic element in r) {
               databaseResult.add(Video.fromJson(element));
             }

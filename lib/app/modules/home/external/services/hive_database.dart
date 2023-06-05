@@ -37,17 +37,17 @@ class HiveDatabase extends IDataBase {
     try {
       final Box box = await openBox(table);
 
-      final List<dynamic> _removed = [];
+      final List<dynamic> removed = [];
 
-      (await select(table, [], where)).fold((l) => throw l, (r) => _removed.addAll(r));
+      (await select(table, [], where)).fold((l) => throw l, (r) => removed.addAll(r));
 
-      for (final dynamic _element in _removed) {
-        final Map<String, dynamic> _delete = jsonDecode(_element.toString());
-        final String _deleteKey = _delete.values.first.toString();
-        box.delete(_deleteKey);
+      for (final dynamic element in removed) {
+        final Map<String, dynamic> delete = jsonDecode(element.toString());
+        final String deleteKey = delete.values.first.toString();
+        box.delete(deleteKey);
       }
 
-      return Right(_removed);
+      return Right(removed);
     } on IFailure catch (e) {
       return Left(e);
     } catch (e) {
@@ -60,17 +60,17 @@ class HiveDatabase extends IDataBase {
     try {
       final Box box = await openBox(table);
 
-      final WhereType _where = {};
-      for (final _key in columns.keys) {
+      final WhereType where = {};
+      for (final key in columns.keys) {
         // final List<String> _element = (jsonDecode(columns[_key].toString()));
-        _where.addAll({
-          _key: [columns[_key].toString()]
+        where.addAll({
+          key: [columns[key].toString()]
         });
       }
 
       await box.put(columns.values.first, jsonEncode(columns));
-      final _result = (await select(table, [], _where)).fold((l) => [], (r) => r);
-      return Right(_result);
+      final result = (await select(table, [], where)).fold((l) => [], (r) => r);
+      return Right(result);
     } catch (e) {
       return Left(DataBaseError(e.toString()));
     }
@@ -78,54 +78,54 @@ class HiveDatabase extends IDataBase {
 
   @override
   Future<Either<IFailure, List>> select(String table, ColumnsSelectType columns, WhereType where) async {
-    final List<dynamic> _finalList = [];
+    final List<dynamic> finalList = [];
     try {
       final Box box = await openBox(table);
 
-      List<dynamic> _listBox = [];
-      _listBox = box.values.toList();
+      List<dynamic> listBox = [];
+      listBox = box.values.toList();
 
-      where.forEach((_keyWhere, _valueWhere) {
-        _listBox.removeWhere((_element) {
-          final Map<String, dynamic> _result = jsonDecode(_element.toString());
-          return (_result.containsKey(_keyWhere)) && !_valueWhere.contains(_result[_keyWhere].toString());
+      where.forEach((keyWhere, valueWhere) {
+        listBox.removeWhere((element) {
+          final Map<String, dynamic> result = jsonDecode(element.toString());
+          return (result.containsKey(keyWhere)) && !valueWhere.contains(result[keyWhere].toString());
         });
       });
-      _finalList.addAll(_listBox);
+      finalList.addAll(listBox);
     } catch (e) {
       return Left(DataBaseError(e.toString()));
     }
 
-    return Right(_finalList);
+    return Right(finalList);
   }
 
   @override
   Future<Either<IFailure, List>> update(String table, ColumnType columns, WhereType where) async {
-    List<dynamic> _finalList = [];
-    final List<dynamic> _resultList = [];
+    List<dynamic> finalList = [];
+    final List<dynamic> resultList = [];
     try {
       final Box box = await openBox(table);
-      _finalList = (await select(table, [], where)).fold((l) => [], (r) => r);
+      finalList = (await select(table, [], where)).fold((l) => [], (r) => r);
 
-      where.forEach((_keyWhere, _valueWhere) {
-        _finalList.removeWhere((_element) {
-          final Map<String, dynamic> _result = jsonDecode(_element.toString());
-          return (_result.containsKey(_keyWhere)) && !_valueWhere.contains(_result[_keyWhere].toString());
+      where.forEach((keyWhere, valueWhere) {
+        finalList.removeWhere((element) {
+          final Map<String, dynamic> result = jsonDecode(element.toString());
+          return (result.containsKey(keyWhere)) && !valueWhere.contains(result[keyWhere].toString());
         });
       });
 
-      if (_finalList.isNotEmpty) {
-        for (final _element in _finalList) {
-          final Map<String, dynamic> _result = jsonDecode(_element.toString());
+      if (finalList.isNotEmpty) {
+        for (final element in finalList) {
+          final Map<String, dynamic> result = jsonDecode(element.toString());
 
-          columns.forEach((_keyUpdate, _valueUpdate) {
-            _result[_keyUpdate] = _valueUpdate;
+          columns.forEach((keyUpdate, valueUpdate) {
+            result[keyUpdate] = valueUpdate;
           });
 
-          box.put(_result.values.first, jsonEncode(_result));
+          box.put(result.values.first, jsonEncode(result));
         }
-        _resultList.addAll((await select(table, [], where)).fold((l) => [], (r) => r));
-        return Right(_resultList);
+        resultList.addAll((await select(table, [], where)).fold((l) => [], (r) => r));
+        return Right(resultList);
       } else {
         return Left(DataBaseNotUpdateError());
       }

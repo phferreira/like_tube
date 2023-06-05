@@ -7,8 +7,8 @@ import 'package:like_tube/app/modules/home/presenter/stores/home_store.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
   const BottomNavigationBarWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   HomeStore get homeStore => Modular.get<HomeStore>();
   BottomNavigationStore get bottomNavigationStore => Modular.get<BottomNavigationStore>();
@@ -16,6 +16,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScopedBuilder<BottomNavigationStore, IFailure, int>(
+      store: bottomNavigationStore,
       onLoading: (_) => const SizedBox(),
       onState: (_, selectItem) {
         return BottomNavigationBar(

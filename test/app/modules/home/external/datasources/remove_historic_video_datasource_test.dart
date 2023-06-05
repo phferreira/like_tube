@@ -13,26 +13,26 @@ class DataBaseMock extends Mock implements IDataBase {}
 void main() {
   final IDataBase database = DataBaseMock();
   final IRemoveHistoricVideoDatasource datasource = RemoveHistoricVideoDatasource(database: database);
-  final List<dynamic> _listResult = [];
+  final List<dynamic> listResult = [];
   final Video video = Video(id: '986', title: 'Titulo 986', url: 'http://teste.com');
 
   setUpAll(() {
-    _listResult.add(video.toJson());
+    listResult.add(video.toJson());
   });
 
   test('Deve retornar o Video que foi removido', () async {
-    when(() => database.delete(any(), any())).thenAnswer((_) async => Right(_listResult));
-    final _result = await datasource(video);
+    when(() => database.delete(any(), any())).thenAnswer((_) async => Right(listResult));
+    final result = await datasource(video);
 
-    expect(_result, isA<Right<IFailure, Video>>());
+    expect(result, isA<Right<IFailure, Video>>());
     verify(() => database.delete(any(), any()));
   });
 
   test('Deve retornar um Left(IFailure) quando vier DatabaseError da consulta', () async {
     when(() => database.delete(any(), any())).thenAnswer((_) async => Left(DataBaseError()));
-    final _result = await datasource(video);
+    final result = await datasource(video);
 
-    expect(_result, isA<Left<IFailure, Video>>());
+    expect(result, isA<Left<IFailure, Video>>());
     verify(() => database.delete(any(), any()));
   });
 }

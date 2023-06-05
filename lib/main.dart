@@ -6,5 +6,10 @@ import 'package:like_tube/app/app_widget.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(ModularApp(module: AppModule(), child: const AppWidget()));
+  runApp(
+    ModularApp(
+      module: AppModule(),
+      child: const AppWidget(),
+    ),
+  );
 }

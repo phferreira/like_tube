@@ -13,21 +13,21 @@ class GetAllFavoriteVideoDatasource extends IGetAllFavoriteVideoDatasource {
 
   @override
   Future<Either<IFailure, List<Video>>> call() async {
-    const String _table = 'tb_favoritevideos';
+    const String table = 'tb_favoritevideos';
 
-    final WhereType _where = {
+    final WhereType where = {
       'bl_favorite': ['true'],
     };
 
     try {
-      final List<Video> _databaseResult = <Video>[];
+      final List<Video> databaseResult = <Video>[];
 
-      (await database.select(_table, [], _where)).fold((l) => throw l, (r) {
+      (await database.select(table, [], where)).fold((l) => throw l, (r) {
         return r.toList().forEach((element) {
-          _databaseResult.add(Video.fromJson(element.toString()));
+          databaseResult.add(Video.fromJson(element.toString()));
         });
       });
-      return Right(_databaseResult);
+      return Right(databaseResult);
     } on IFailure catch (e) {
       return Left(e);
     } catch (e) {

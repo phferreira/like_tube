@@ -9,16 +9,19 @@ import 'package:like_tube/app/modules/home/presenter/widgets/list_widget.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
-  const HomePage({Key? key, this.title = 'Like Tube'}) : super(key: key);
+  const HomePage({super.key, this.title = 'Like Tube'});
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends ModularState<HomePage, HomeStore> {
+class _HomePageState extends State<HomePage> {
+  HomeStore homeStore = Modular.get<HomeStore>();
+  BottomNavigationStore get bottomNavigationStore => Modular.get<BottomNavigationStore>();
+
   @override
   void initState() {
-    store.observer(
+    homeStore.observer(
       onState: (state) => debugPrint('state change '),
       onLoading: (loading) => debugPrint('is loading'),
       onError: (error) => debugPrint('error true'),
@@ -26,11 +29,10 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
     super.initState();
   }
 
-  BottomNavigationStore get bottomNavigationStore => Modular.get<BottomNavigationStore>();
-
   @override
   Widget build(BuildContext context) {
     return ScopedBuilder<BottomNavigationStore, IFailure, int>(
+      store: bottomNavigationStore,
       onLoading: (_) => const SizedBox(),
       onState: (context, index) {
         return Scaffold(

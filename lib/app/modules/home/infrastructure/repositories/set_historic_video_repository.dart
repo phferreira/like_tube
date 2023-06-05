@@ -13,8 +13,8 @@ class SetHistoricVideoRepository extends ISetHistoricVideoRepository {
   @override
   Future<Either<IFailure, Video>> call(Video videoParam) async {
     try {
-      final _result = await datasource(videoParam);
-      return _result;
+      final result = await datasource(videoParam);
+      return result;
     } on IFailure catch (e) {
       return Left(e);
     } catch (e) {

@@ -7,9 +7,9 @@ class GridListsWidget extends StatefulWidget {
   final List<Video> gridList;
 
   const GridListsWidget({
-    Key? key,
+    super.key,
     required this.gridList,
-  }) : super(key: key);
+  });
 
   @override
   _GridListsWidgetState createState() => _GridListsWidgetState();

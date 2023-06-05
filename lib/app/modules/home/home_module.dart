@@ -33,11 +33,11 @@ class HomeModule extends Module {
   @override
   final List<Bind> binds = [
     // Store
-    Bind.lazySingleton((i) => HomeStore()),
-    Bind.lazySingleton((i) => VideoItemStore()),
-    Bind.lazySingleton((i) => BottomNavigationStore()),
-    Bind.lazySingleton((i) => FavoriteVideoStore()),
-    Bind.lazySingleton((i) => HistoryVideoStore()),
+    Bind<HomeStore>((i) => HomeStore()),
+    Bind((i) => VideoItemStore()),
+    Bind((i) => BottomNavigationStore()),
+    Bind((i) => FavoriteVideoStore()),
+    Bind((i) => HistoryVideoStore()),
     // Services
     Bind.lazySingleton((i) => CustomDio()),
     Bind.lazySingleton((i) => DioApiConnection(dio: i())),
@@ -67,7 +67,7 @@ class HomeModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(Modular.initialRoute, child: (_, args) => const HomePage()),
+    ChildRoute(Modular.initialRoute, child: (context, args) => const HomePage()),
     ModuleRoute(Routes.video, module: VideoModule()),
   ];
 }

@@ -17,27 +17,27 @@ void main() {
   test('Deve retornar uma Right(List<Video>)', () async {
     when(() => datasource()).thenAnswer((_) async => const Right(<Video>[]));
 
-    final _result = await repository();
+    final result = await repository();
 
-    expect(_result, isA<Right<IFailure, List<Video>>>());
+    expect(result, isA<Right<IFailure, List<Video>>>());
     verify(() => datasource());
   });
 
   test('Deve retornar Left(Ifailure) se ocorrer uma exception', () async {
     when(() => datasource()).thenThrow((_) async => Exception());
 
-    final _result = await repository();
+    final result = await repository();
 
-    expect(_result, isA<Left<IFailure, List<Video>>>());
+    expect(result, isA<Left<IFailure, List<Video>>>());
     verify(() => datasource());
   });
 
   test('Deve retornar Left(Ifailure) se vier ifailure do datasource ', () async {
     when(() => datasource()).thenThrow(GetHistoricVideoDatasourceError());
 
-    final _result = await repository();
+    final result = await repository();
 
-    expect(_result, isA<Left<IFailure, List<Video>>>());
+    expect(result, isA<Left<IFailure, List<Video>>>());
     verify(() => datasource());
   });
 }

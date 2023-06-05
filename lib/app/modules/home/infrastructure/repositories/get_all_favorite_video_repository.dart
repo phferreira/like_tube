@@ -13,8 +13,8 @@ class GetAllFavoriteVideoRepository extends IGetAllFavoriteVideoRepository {
   @override
   Future<Either<IFailure, List<Video>>> call() async {
     try {
-      final _result = await datasource();
-      return _result;
+      final result = await datasource();
+      return result;
     } on IFailure catch (e) {
       return Left(e);
     } catch (e) {

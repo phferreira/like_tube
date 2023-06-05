@@ -7,7 +7,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 class VideoPage extends StatefulWidget {
   final Video video;
 
-  const VideoPage({Key? key, required this.video}) : super(key: key);
+  const VideoPage({super.key, required this.video});
 
   @override
   _VideoPageState createState() => _VideoPageState();
@@ -32,7 +32,6 @@ class _VideoPageState extends State<VideoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(((MediaQuery.of(context).orientation == Orientation.landscape) ? AppBar() : const Text(''))),
       appBar: AppBar(
         title: const Text('teste'),
       ),

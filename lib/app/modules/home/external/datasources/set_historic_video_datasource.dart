@@ -14,23 +14,23 @@ class SetHistoricVideoDatasource extends ISetHistoricVideoDatasource {
 
   @override
   Future<Either<IFailure, Video>> call(Video videoParam) async {
-    const String _table = 'tb_historicvideos';
+    const String table = 'tb_historicvideos';
 
-    final ColumnType _columns = {
+    final ColumnType columns = {
       'cd_id': videoParam.id,
       'tx_title': videoParam.title,
       'tx_url': videoParam.url,
     };
 
     try {
-      final List<Video> _databaseResult = <Video>[];
+      final List<Video> databaseResult = <Video>[];
 
-      (await database.insert(_table, _columns)).fold((l) => throw l, (r) {
+      (await database.insert(table, columns)).fold((l) => throw l, (r) {
         return r.toList().forEach((element) {
-          _databaseResult.add(Video.fromJson(element.toString()));
+          databaseResult.add(Video.fromJson(element.toString()));
         });
       });
-      return Right(_databaseResult.last);
+      return Right(databaseResult.last);
     } on IFailure catch (e) {
       return Left(e);
     } catch (e) {

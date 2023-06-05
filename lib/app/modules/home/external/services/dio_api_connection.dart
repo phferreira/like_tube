@@ -31,10 +31,10 @@ class DioApiConnection extends IHttp {
         return Left(response.statusCode!.getFailure(response.statusMessage!));
       }
     } on DioError catch (e) {
-      return Left(e.response!.statusCode!.getFailure(e.message));
+      return Left(e.response!.statusCode!.getFailure(e.message ?? ''));
     }
 
-    final result = (response.data['items'] as List).map((element) => Video.fromJsonHttp(element)).toList();
+    final result = (response.data['items'] as List<Map<String, dynamic>>).map((element) => Video.fromJsonHttp(element)).toList();
     return Right(result);
   }
 }

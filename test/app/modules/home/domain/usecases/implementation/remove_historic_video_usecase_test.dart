@@ -21,17 +21,17 @@ void main() {
 
   test('Deve retornar Video se removeu video', () async {
     when(() => repository(video)).thenAnswer((_) async => Right(video));
-    final _result = await usecase(video);
+    final result = await usecase(video);
 
-    expect(_result, isA<Right<IFailure, Video>>());
+    expect(result, isA<Right<IFailure, Video>>());
     verify(() => repository(video));
   });
 
   test('Deve retornar um Left(IFailure) ', () async {
     when(() => repository(video)).thenAnswer((_) async => Left(RemoveHistoricVideoRepositoryError()));
-    final _result = await usecase(video);
+    final result = await usecase(video);
 
-    expect(_result, isA<Left<IFailure, Video>>());
+    expect(result, isA<Left<IFailure, Video>>());
     verify(() => repository(video));
   });
 }
