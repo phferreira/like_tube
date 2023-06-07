@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:fpdart/fpdart.dart';
@@ -10,16 +11,19 @@ import 'package:like_tube/app/modules/home/external/services/failures/database_f
 import 'package:path_provider/path_provider.dart';
 
 class HiveDatabase extends IDataBase {
-  Future start() async {
+  Future<void> start() async {
+    log('Hive start');
     final Directory dir = await getApplicationDocumentsDirectory();
+    log('Hive start 2');
     await Hive.initFlutter(dir.path);
+    log('Hive start 3');
   }
 
-  Future close() async {
+  Future<void> close() async {
     Hive.close();
   }
 
-  Future<Box> openBox(String table) async {
+  Future<Box<String>> openBox(String table) async {
     try {
       return await Hive.openBox(table);
     } catch (e) {
@@ -29,20 +33,20 @@ class HiveDatabase extends IDataBase {
   }
 
   List<Map<String, dynamic>> result(List<dynamic> value) {
-    return jsonDecode(jsonEncode(value));
+    return jsonDecode(jsonEncode(value.toString())) as List<Map<String, dynamic>>;
   }
 
   @override
-  Future<Either<IFailure, List>> delete(String table, WhereType where) async {
+  Future<Either<IFailure, List<Map<String, dynamic>>>> delete(String table, WhereType where) async {
     try {
-      final Box box = await openBox(table);
+      final Box<String> box = await openBox(table);
 
-      final List<dynamic> removed = [];
+      final List<Map<String, dynamic>> removed = [];
 
       (await select(table, [], where)).fold((l) => throw l, (r) => removed.addAll(r));
 
       for (final dynamic element in removed) {
-        final Map<String, dynamic> delete = jsonDecode(element.toString());
+        final Map<String, dynamic> delete = jsonDecode(element.toString()) as Map<String, dynamic>;
         final String deleteKey = delete.values.first.toString();
         box.delete(deleteKey);
       }
@@ -56,9 +60,9 @@ class HiveDatabase extends IDataBase {
   }
 
   @override
-  Future<Either<IFailure, List>> insert(String table, ColumnType columns) async {
+  Future<Either<IFailure, List<Map<String, dynamic>>>> insert(String table, ColumnType columns) async {
     try {
-      final Box box = await openBox(table);
+      final Box<String> box = await openBox(table);
 
       final WhereType where = {};
       for (final key in columns.keys) {
@@ -69,7 +73,7 @@ class HiveDatabase extends IDataBase {
       }
 
       await box.put(columns.values.first, jsonEncode(columns));
-      final result = (await select(table, [], where)).fold((l) => [], (r) => r);
+      final List<Map<String, dynamic>> result = (await select(table, [], where)).fold((l) => [], (r) => r);
       return Right(result);
     } catch (e) {
       return Left(DataBaseError(e.toString()));
@@ -77,20 +81,21 @@ class HiveDatabase extends IDataBase {
   }
 
   @override
-  Future<Either<IFailure, List>> select(String table, ColumnsSelectType columns, WhereType where) async {
-    final List<dynamic> finalList = [];
+  Future<Either<IFailure, List<Map<String, dynamic>>>> select(String table, ColumnsSelectType columns, WhereType where) async {
+    final List<Map<String, dynamic>> finalList = [];
     try {
-      final Box box = await openBox(table);
+      final Box<String> box = await openBox(table);
 
-      List<dynamic> listBox = [];
-      listBox = box.values.toList();
+      List<Map<String, dynamic>> listBox = [];
+      listBox = box.values.toList() as List<Map<String, dynamic>>;
 
       where.forEach((keyWhere, valueWhere) {
         listBox.removeWhere((element) {
-          final Map<String, dynamic> result = jsonDecode(element.toString());
+          final Map<String, dynamic> result = jsonDecode(element.toString()) as Map<String, dynamic>;
           return (result.containsKey(keyWhere)) && !valueWhere.contains(result[keyWhere].toString());
         });
       });
+
       finalList.addAll(listBox);
     } catch (e) {
       return Left(DataBaseError(e.toString()));
@@ -100,23 +105,23 @@ class HiveDatabase extends IDataBase {
   }
 
   @override
-  Future<Either<IFailure, List>> update(String table, ColumnType columns, WhereType where) async {
-    List<dynamic> finalList = [];
-    final List<dynamic> resultList = [];
+  Future<Either<IFailure, List<Map<String, dynamic>>>> update(String table, ColumnType columns, WhereType where) async {
+    List<Map<String, dynamic>> finalList = [];
+    final List<Map<String, dynamic>> resultList = [];
     try {
-      final Box box = await openBox(table);
+      final Box<String> box = await openBox(table);
       finalList = (await select(table, [], where)).fold((l) => [], (r) => r);
 
       where.forEach((keyWhere, valueWhere) {
         finalList.removeWhere((element) {
-          final Map<String, dynamic> result = jsonDecode(element.toString());
+          final Map<String, dynamic> result = jsonDecode(element.toString()) as Map<String, dynamic>;
           return (result.containsKey(keyWhere)) && !valueWhere.contains(result[keyWhere].toString());
         });
       });
 
       if (finalList.isNotEmpty) {
         for (final element in finalList) {
-          final Map<String, dynamic> result = jsonDecode(element.toString());
+          final Map<String, dynamic> result = jsonDecode(element.toString()) as Map<String, dynamic>;
 
           columns.forEach((keyUpdate, valueUpdate) {
             result[keyUpdate] = valueUpdate;

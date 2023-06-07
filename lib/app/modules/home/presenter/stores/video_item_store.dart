@@ -12,7 +12,7 @@ class VideoItemStore extends NotifierStore<IFailure, Video> {
   ISetFavoriteVideoUsecase get _usecase => Modular.get<SetFavoriteVideoUsecase>();
   FavoriteVideoStore get _favoriteVideoStore => Modular.get<FavoriteVideoStore>();
 
-  Future saveFavorite(Video video) async {
+  Future<void> saveFavorite(Video video) async {
     setLoading(true);
     await _usecase(video);
     update(video);

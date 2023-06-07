@@ -10,7 +10,7 @@ class FavoriteVideoStore extends NotifierStore<IFailure, List<Video>> {
 
   IGetAllFavoriteVideoUsecase get _getAllFavoriteUsecase => Modular.get<GetAllFavoriteVideoUsecase>();
 
-  Future getAllFavoriteVideos() async {
+  Future<void> getAllFavoriteVideos() async {
     setLoading(true);
     update((await _getAllFavoriteUsecase()).fold((l) => [], (r) => r));
     setLoading(false);

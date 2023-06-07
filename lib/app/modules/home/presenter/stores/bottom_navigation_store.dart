@@ -17,10 +17,8 @@ class BottomNavigationStore extends NotifierStore<IFailure, int> {
     switch (index) {
       case 1:
         favoriteVideoStore.getAllFavoriteVideos();
-        break;
       case 2:
         historyVideoStore.getHistoryVideos();
-        break;
       default:
     }
     setLoading(false);

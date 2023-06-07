@@ -67,7 +67,7 @@ class HomeModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(Modular.initialRoute, child: (context, args) => const HomePage()),
-    ModuleRoute(Routes.video, module: VideoModule()),
+    ChildRoute<void>(Modular.initialRoute, child: (context, args) => const HomePage()),
+    ModuleRoute<void>(Routes.video, module: VideoModule()),
   ];
 }

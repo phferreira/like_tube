@@ -11,6 +11,6 @@ class VideoModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(Modular.initialRoute, child: (_, args) => VideoPage(video: Video.noProperties())),
+    ChildRoute<void>(Modular.initialRoute, child: (_, args) => VideoPage(video: Video.noProperties())),
   ];
 }

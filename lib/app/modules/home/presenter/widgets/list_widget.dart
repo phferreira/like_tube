@@ -38,10 +38,10 @@ List<AppBar> listWidgetMenu = <AppBar>[
   ),
   AppBar(
     title: const Text('Histórico'),
-    actions: <Widget>[
+    actions: [
       PopupMenuButton(
         icon: const Icon(Icons.list),
-        itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+        itemBuilder: (BuildContext context) => <PopupMenuEntry<void>>[
           PopupMenuItem(
             child: const ListTile(
               title: Text('Remover todos'),

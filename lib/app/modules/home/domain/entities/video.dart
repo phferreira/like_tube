@@ -40,21 +40,21 @@ class Video implements IVideo {
   factory Video.fromMap(Map<String, dynamic> map) {
     return Video(
       favorite: map['bl_favorite'].toString() == 'true',
-      id: map['cd_id'] ?? '',
-      title: map['tx_title'] ?? '',
-      url: map['tx_url'] ?? '',
+      id: map['cd_id'] as String,
+      title: map['tx_title'] as String,
+      url: map['tx_url'] as String,
     );
   }
 
   String toJson() => jsonEncode(toMap());
 
-  factory Video.fromJson(String source) => Video.fromMap(jsonDecode(source));
+  factory Video.fromJson(String source) => Video.fromMap(jsonDecode(source) as Map<String, dynamic>);
 
   factory Video.fromJsonHttp(Map<String, dynamic> json) {
     return Video(
-      id: json['id']['videoId'] ?? '',
-      title: json['snippet']['title'] ?? '',
-      url: json['snippet']['thumbnails']['high']['url'] ?? '',
+      id: json['id']['videoId'] as String,
+      title: json['snippet']['title'] as String,
+      url: json['snippet']['thumbnails']['high']['url'] as String,
     );
   }
 }

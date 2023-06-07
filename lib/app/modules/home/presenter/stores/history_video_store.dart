@@ -16,17 +16,17 @@ class HistoryVideoStore extends NotifierStore<IFailure, List<Video>> {
   ISetHistoricVideoUsecase get _setHistoricVideoUsecase => Modular.get<SetHistoricVideoUsecase>();
   IRemoveHistoricVideoUsecase get _removeHistoricVideoUsecase => Modular.get<RemoveHistoricVideoUsecase>();
 
-  Future getHistoryVideos() async {
+  Future<void> getHistoryVideos() async {
     setLoading(true);
     update((await _getHistoricVideoUsecase()).fold((l) => [], (r) => r));
     setLoading(false);
   }
 
-  Future setHistoryVideo(Video video) async {
+  Future<void> setHistoryVideo(Video video) async {
     await _setHistoricVideoUsecase(video);
   }
 
-  Future removeAll() async {
+  Future<void> removeAll() async {
     setLoading(true);
     for (final Video video in state) {
       await _removeHistoricVideoUsecase(video);
