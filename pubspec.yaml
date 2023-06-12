@@ -22,6 +22,8 @@ dependencies:
   mocktail: ^0.3.0
   modular_triple_bind: ^1.0.0
   path_provider: ^2.0.8
+  path_provider_platform_interface: ^2.0.6
+  plugin_platform_interface: ^2.1.4
   youtube_player_flutter: ^8.0.0
 
 dev_dependencies:
