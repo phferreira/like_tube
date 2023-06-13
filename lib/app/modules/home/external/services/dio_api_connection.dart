@@ -19,7 +19,7 @@ class DioApiConnection extends IHttp {
       response = await dio.get(
         '/search',
         queryParameters: {
-          'key': apiKey,
+          'key': apiKeyYoutube,
           'part': 'snippet,id',
           'order': 'date',
           'maxResults': 100,
@@ -34,7 +34,9 @@ class DioApiConnection extends IHttp {
       return Left(e.response!.statusCode!.getFailure(e.message ?? ''));
     }
 
-    final result = (response.data!['items'] as List<Map<String, dynamic>>).map((element) => Video.fromJsonHttp(element)).toList();
+    final result = (response.data!['items'] as List).map((element) {
+      return Video.fromJsonHttp(element as Map<String, dynamic>);
+    }).toList();
     return Right(result);
   }
 }
