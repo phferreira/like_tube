@@ -14,7 +14,7 @@ import 'package:like_tube/app/modules/home/external/datasources/set_favorite_vid
 import 'package:like_tube/app/modules/home/external/datasources/set_historic_video_datasource.dart';
 import 'package:like_tube/app/modules/home/external/services/custom_dio.dart';
 import 'package:like_tube/app/modules/home/external/services/dio_api_connection.dart';
-import 'package:like_tube/app/modules/home/external/services/hive_database.dart';
+import 'package:like_tube/app/modules/home/external/services/shared_preferences_database.dart';
 import 'package:like_tube/app/modules/home/infrastructure/repositories/get_all_favorite_video_repository.dart';
 import 'package:like_tube/app/modules/home/infrastructure/repositories/get_historic_video_repository.dart';
 import 'package:like_tube/app/modules/home/infrastructure/repositories/get_video_by_description_repository.dart';
@@ -41,7 +41,7 @@ class HomeModule extends Module {
     // Services
     Bind.lazySingleton((i) => CustomDio()),
     Bind.lazySingleton((i) => DioApiConnection(dio: i())),
-    Bind.lazySingleton((i) => HiveDatabase()),
+    Bind.lazySingleton((i) => SharedPreferencesDatabase()),
     // DataSources
     Bind.lazySingleton((i) => GetVideoByDescriptionDataSource(connection: i())),
     Bind.lazySingleton((i) => SetFavoriteVideoDatasource(database: i())),

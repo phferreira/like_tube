@@ -1,37 +1,28 @@
 import 'dart:async';
-import 'dart:io';
+import 'dart:convert';
 
 import 'package:fpdart/fpdart.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:like_tube/app/core/connections/i_database.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
 import 'package:like_tube/app/core/types/query_type.dart';
 import 'package:like_tube/app/modules/home/external/services/failures/database_failure.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HiveDatabase extends IDataBase {
-  Future<void> start() async {
-    final Directory dir = await getApplicationSupportDirectory();
-    Hive.initFlutter(dir.path);
-  }
+class SharedPreferencesDatabase extends IDataBase {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  Future<void> close() async {
-    Hive.close();
-  }
-
-  Future<Box<Map<String, dynamic>>> openBox(String table) async {
+  Future<SharedPreferences> initSharedPreferences(String table) async {
     try {
-      return await Hive.openBox(table);
+      return await _prefs;
     } catch (e) {
-      await start();
-      return Hive.openBox(table);
+      return SharedPreferences.getInstance();
     }
   }
 
   @override
   Future<Either<IFailure, List<Map<String, dynamic>>>> delete(String table, WhereType where) async {
     try {
-      final Box<Map<String, dynamic>> box = await openBox(table);
+      final box = await initSharedPreferences(table);
 
       final List<Map<String, dynamic>> removed = [];
 
@@ -39,7 +30,7 @@ class HiveDatabase extends IDataBase {
 
       for (final dynamic element in removed) {
         final String deleteKey = element.values.first.toString();
-        box.delete(deleteKey);
+        box.remove(deleteKey);
       }
 
       return Right(removed);
@@ -53,7 +44,7 @@ class HiveDatabase extends IDataBase {
   @override
   Future<Either<IFailure, List<Map<String, dynamic>>>> insert(String table, ColumnType columns) async {
     try {
-      final Box<Map<String, dynamic>> box = await openBox(table);
+      final box = await initSharedPreferences(table);
 
       final WhereType where = {};
       for (final key in columns.keys) {
@@ -62,7 +53,7 @@ class HiveDatabase extends IDataBase {
         });
       }
 
-      await box.put(columns.values.first, columns);
+      await box.setString(columns.values.first, jsonEncode(columns));
       final List<Map<String, dynamic>> result = (await select(table, [], where)).fold((l) => [], (r) => r);
       return Right(result);
     } catch (e) {
@@ -72,22 +63,25 @@ class HiveDatabase extends IDataBase {
 
   @override
   Future<Either<IFailure, List<Map<String, dynamic>>>> select(String table, ColumnsSelectType columns, WhereType where) async {
-    List<Map<String, dynamic>> listBox = [];
+    final List<Map<String, dynamic>> listBox = [];
     try {
-      final Box<Map<String, dynamic>> box = await openBox(table);
+      final box = await initSharedPreferences(table);
+      final listBoxAux = box.getKeys();
 
-      listBox = box.values.toList();
+      for (final element in listBoxAux) {
+        final String map = box.getString(element) ?? '';
+        final json = jsonDecode(map) as Map<String, dynamic>;
 
-      where.forEach((keyWhere, valueWhere) {
-        listBox.removeWhere((element) {
-          return (element.containsKey(keyWhere)) && !valueWhere.contains(element[keyWhere].toString());
+        where.forEach((keyWhere, valueWhere) {
+          if ((json.containsKey(keyWhere)) && (valueWhere.contains(json[keyWhere].toString()))) {
+            listBox.add(json);
+          }
         });
-      });
+      }
+      return Right(listBox);
     } catch (e) {
       return Left(DataBaseError(e.toString()));
     }
-
-    return Right(listBox);
   }
 
   @override
@@ -95,7 +89,7 @@ class HiveDatabase extends IDataBase {
     List<Map<String, dynamic>> finalList = [];
     final List<Map<String, dynamic>> resultList = [];
     try {
-      final Box<Map<String, dynamic>> box = await openBox(table);
+      final box = await initSharedPreferences(table);
       finalList = (await select(table, [], where)).fold((l) => [], (r) => r);
 
       where.forEach((keyWhere, valueWhere) {
@@ -110,7 +104,7 @@ class HiveDatabase extends IDataBase {
             element[keyUpdate] = valueUpdate;
           });
 
-          box.put(element.values.first, element);
+          box.setString(columns.values.first, jsonEncode(element));
         }
         resultList.addAll((await select(table, [], where)).fold((l) => [], (r) => r));
         return Right(resultList);
