@@ -13,11 +13,11 @@ void main() {
   final database = DatabaseMock();
   final datasource = SetFavoriteVideoDatasource(database: database);
   final video = Video(id: '789', title: 'Titulo 798', url: 'http://teste.com');
-  final List<dynamic> list = [];
+  final List<Map<String, dynamic>> list = [];
 
   setUp(() {
     video.favorite = false;
-    list.add(Video(id: '789', title: 'Titulo 789', url: 'http://teste.com', favorite: true).toJson());
+    list.add(Video(id: '789', title: 'Titulo 789', url: 'http://teste.com', favorite: true).toMap());
   });
 
   test('Deve retornar !favorite em update', () async {

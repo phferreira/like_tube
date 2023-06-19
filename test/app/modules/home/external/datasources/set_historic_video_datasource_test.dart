@@ -13,11 +13,11 @@ class DataBaseMock extends Mock implements IDataBase {}
 void main() {
   final IDataBase database = DataBaseMock();
   final ISetHistoricVideoDatasource datasource = SetHistoricVideoDatasource(database: database);
-  final List<dynamic> listResult = [];
+  final List<Map<String, dynamic>> listResult = [];
   final Video video = Video(id: '987', title: 'Titulo 987', url: 'http://teste.com');
 
   setUpAll(() {
-    listResult.add(video.toJson());
+    listResult.add(video.toMap());
   });
 
   test('Deve retornar uma List<Video>', () async {
