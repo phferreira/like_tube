@@ -23,9 +23,9 @@ class GetAllFavoriteVideoDatasource extends IGetAllFavoriteVideoDatasource {
       final List<Video> databaseResult = <Video>[];
 
       (await database.select(table, [], where)).fold((l) => throw l, (r) {
-        return r.toList().forEach((element) {
-          databaseResult.add(Video.fromJson(element.toString()));
-        });
+        for (final Map<String, dynamic> element in r) {
+          databaseResult.add(Video.fromMap(element));
+        }
       });
       return Right(databaseResult);
     } on IFailure catch (e) {

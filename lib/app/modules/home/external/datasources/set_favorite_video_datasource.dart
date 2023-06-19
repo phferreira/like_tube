@@ -31,8 +31,8 @@ class SetFavoriteVideoDatasource extends ISetFavoriteVideoDatasource {
 
       result.add(
         (await database.update(table, columns, where)).fold((l) => DatabaseResultEnum.notUpdated, (r) {
-          for (final element in r) {
-            databaseResult.add(Video.fromJson(element as String));
+          for (final Map<String, dynamic> element in r) {
+            databaseResult.add(Video.fromMap(element));
           }
           return DatabaseResultEnum.updated;
         }),
@@ -40,8 +40,8 @@ class SetFavoriteVideoDatasource extends ISetFavoriteVideoDatasource {
       if (result.last == DatabaseResultEnum.notUpdated) {
         result.add(
           (await database.insert(table, columns)).fold((l) => DatabaseResultEnum.notInserted, (r) {
-            for (final element in r) {
-              databaseResult.add(Video.fromJson(element.toString()));
+            for (final Map<String, dynamic> element in r) {
+              databaseResult.add(Video.fromMap(element));
             }
             return DatabaseResultEnum.inserted;
           }),
