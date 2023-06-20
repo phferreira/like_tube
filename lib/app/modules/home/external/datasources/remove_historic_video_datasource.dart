@@ -25,7 +25,7 @@ class RemoveHistoricVideoDatasource extends IRemoveHistoricVideoDatasource {
 
       (await database.delete(table, where)).fold((l) => throw l, (r) {
         return r.toList().forEach((element) {
-          databaseResult.add(Video.fromJson(element.toString()));
+          databaseResult.add(Video.fromMap(element));
         });
       });
       return Right(databaseResult.last);
