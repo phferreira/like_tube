@@ -23,7 +23,7 @@ class SetHistoricVideoDatasource extends ISetHistoricVideoDatasource {
     };
 
     try {
-      final List<Video> databaseResult = <Video>[];
+      final ListVideo databaseResult = <Video>[];
 
       (await database.insert(table, columns)).fold((l) => throw l, (r) {
         return r.toList().forEach((element) {

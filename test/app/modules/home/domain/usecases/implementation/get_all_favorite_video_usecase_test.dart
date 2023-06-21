@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
+import 'package:like_tube/app/core/types/query_type.dart';
 import 'package:like_tube/app/modules/home/domain/entities/video.dart';
 import 'package:like_tube/app/modules/home/domain/repositories/failures/get_all_favorite_video_repository_failure.dart';
 import 'package:like_tube/app/modules/home/domain/repositories/i_get_all_favorite_video_repository.dart';
@@ -18,7 +19,7 @@ void main() {
     when(() => repository()).thenAnswer((_) async => const Right(<Video>[]));
     final result = await usecase();
 
-    expect(result, isA<Right<IFailure, List<Video>>>());
+    expect(result, isA<Right<IFailure, ListVideo>>());
     verify(() => repository());
   });
 
@@ -26,7 +27,7 @@ void main() {
     when(() => repository()).thenAnswer((_) async => Left(GetAllFavoriteVideoRepositoryError()));
     final result = await usecase();
 
-    expect(result, isA<Left<IFailure, List<Video>>>());
+    expect(result, isA<Left<IFailure, ListVideo>>());
     verify(() => repository());
   });
 }

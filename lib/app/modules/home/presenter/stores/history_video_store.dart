@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
+import 'package:like_tube/app/core/types/query_type.dart';
 import 'package:like_tube/app/modules/home/domain/entities/video.dart';
 import 'package:like_tube/app/modules/home/domain/usecases/i_get_historic_video_usecase.dart';
 import 'package:like_tube/app/modules/home/domain/usecases/i_remove_historic_video_usecase.dart';
@@ -9,8 +10,8 @@ import 'package:like_tube/app/modules/home/domain/usecases/implementation/get_hi
 import 'package:like_tube/app/modules/home/domain/usecases/implementation/remove_historic_video_usecase.dart';
 import 'package:like_tube/app/modules/home/domain/usecases/implementation/set_historic_video_usecase.dart';
 
-class HistoryVideoStore extends NotifierStore<IFailure, List<Video>> {
-  HistoryVideoStore() : super([]);
+class HistoryVideoStore extends NotifierStore<IFailure, ListVideo> {
+  HistoryVideoStore() : super(List.of([]));
 
   IGetHistoricVideoUsecase get _getHistoricVideoUsecase => Modular.get<GetHistoricVideoUsecase>();
   ISetHistoricVideoUsecase get _setHistoricVideoUsecase => Modular.get<SetHistoricVideoUsecase>();

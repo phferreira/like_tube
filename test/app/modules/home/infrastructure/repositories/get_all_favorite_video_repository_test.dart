@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
+import 'package:like_tube/app/core/types/query_type.dart';
 import 'package:like_tube/app/modules/home/domain/entities/video.dart';
 import 'package:like_tube/app/modules/home/domain/repositories/i_get_historic_video_repository.dart';
 import 'package:like_tube/app/modules/home/infrastructure/datasources/failures/get_historic_video_datasource_failure.dart';
@@ -14,12 +15,12 @@ void main() {
   final IGetHistoricVideoDatasource datasource = GetHistoricVideoDatasourceMock();
   final IGetHistoricVideoRepository repository = GetHistoricVideoRepository(datasource: datasource);
 
-  test('Deve retornar uma Right(List<Video>)', () async {
+  test('Deve retornar uma Right(ListVideo)', () async {
     when(() => datasource()).thenAnswer((_) async => const Right(<Video>[]));
 
     final result = await repository();
 
-    expect(result, isA<Right<IFailure, List<Video>>>());
+    expect(result, isA<Right<IFailure, ListVideo>>());
     verify(() => datasource());
   });
 
@@ -28,7 +29,7 @@ void main() {
 
     final result = await repository();
 
-    expect(result, isA<Left<IFailure, List<Video>>>());
+    expect(result, isA<Left<IFailure, ListVideo>>());
     verify(() => datasource());
   });
 
@@ -37,7 +38,7 @@ void main() {
 
     final result = await repository();
 
-    expect(result, isA<Left<IFailure, List<Video>>>());
+    expect(result, isA<Left<IFailure, ListVideo>>());
     verify(() => datasource());
   });
 }

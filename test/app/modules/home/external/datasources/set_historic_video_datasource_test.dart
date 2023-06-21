@@ -20,7 +20,7 @@ void main() {
     listResult.add(video.toMap());
   });
 
-  test('Deve retornar uma List<Video>', () async {
+  test('Deve retornar uma ListVideo', () async {
     when(() => database.insert(any(), any())).thenAnswer((_) async => Right(listResult));
     final result = await datasource(video);
 

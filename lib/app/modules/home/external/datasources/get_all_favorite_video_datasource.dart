@@ -12,7 +12,7 @@ class GetAllFavoriteVideoDatasource extends IGetAllFavoriteVideoDatasource {
   GetAllFavoriteVideoDatasource({required this.database});
 
   @override
-  Future<Either<IFailure, List<Video>>> call() async {
+  Future<Either<IFailure, ListVideo>> call() async {
     const String table = 'tb_favoritevideos';
 
     final WhereType where = {
@@ -20,7 +20,7 @@ class GetAllFavoriteVideoDatasource extends IGetAllFavoriteVideoDatasource {
     };
 
     try {
-      final List<Video> databaseResult = <Video>[];
+      final ListVideo databaseResult = <Video>[];
 
       (await database.select(table, [], where)).fold((l) => throw l, (r) {
         for (final Map<String, dynamic> element in r) {

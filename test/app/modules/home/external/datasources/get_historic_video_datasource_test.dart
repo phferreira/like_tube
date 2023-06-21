@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:like_tube/app/core/connections/i_database.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
+import 'package:like_tube/app/core/types/query_type.dart';
 import 'package:like_tube/app/modules/home/domain/entities/video.dart';
 import 'package:like_tube/app/modules/home/external/datasources/get_historic_video_datasource.dart';
 import 'package:like_tube/app/modules/home/external/services/failures/database_failure.dart';
@@ -20,11 +21,11 @@ void main() {
     listResult.add(video.toMap());
   });
 
-  test('Deve retornar uma List<Video>', () async {
+  test('Deve retornar uma ListVideo', () async {
     when(() => database.select(any(), any(), any())).thenAnswer((_) async => Right(listResult));
     final result = await datasource();
 
-    expect(result, isA<Right<IFailure, List<Video>>>());
+    expect(result, isA<Right<IFailure, ListVideo>>());
     verify(() => database.select(any(), any(), any()));
   });
 
@@ -32,7 +33,7 @@ void main() {
     when(() => database.select(any(), any(), any())).thenThrow(DataBaseError());
     final result = await datasource();
 
-    expect(result, isA<Left<IFailure, List<Video>>>());
+    expect(result, isA<Left<IFailure, ListVideo>>());
     verify(() => database.select(any(), any(), any()));
   });
 }

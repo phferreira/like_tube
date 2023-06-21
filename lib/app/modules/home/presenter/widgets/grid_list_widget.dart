@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:like_tube/app/core/types/query_type.dart';
 
-import 'package:like_tube/app/modules/home/domain/entities/video.dart';
 import 'package:like_tube/app/modules/home/presenter/widgets/video_item_widget.dart';
 
 class GridListsWidget extends StatefulWidget {
-  final List<Video> gridList;
+  final ListVideo gridList;
 
   const GridListsWidget({
     super.key,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
-import 'package:like_tube/app/modules/home/domain/entities/video.dart';
+import 'package:like_tube/app/core/types/query_type.dart';
 import 'package:like_tube/app/modules/home/presenter/stores/bottom_navigation_store.dart';
 import 'package:like_tube/app/modules/home/presenter/stores/favorite_video_store.dart';
 import 'package:like_tube/app/modules/home/presenter/stores/history_video_store.dart';
@@ -56,7 +56,7 @@ List<AppBar> listWidgetMenu = <AppBar>[
 ];
 
 List<Widget> listWidgetBody = <Widget>[
-  ScopedBuilder<HomeStore, IFailure, List<Video>>(
+  ScopedBuilder<HomeStore, IFailure, ListVideo>(
     store: homeStore,
     onState: (_, list) {
       return GridListsWidget(gridList: list);
@@ -65,13 +65,13 @@ List<Widget> listWidgetBody = <Widget>[
       return Container();
     },
   ),
-  ScopedBuilder<FavoriteVideoStore, IFailure, List<Video>>(
+  ScopedBuilder<FavoriteVideoStore, IFailure, ListVideo>(
     store: videoItemStore,
     onState: (_, list) {
       return GridListsWidget(gridList: list);
     },
   ),
-  ScopedBuilder<HistoryVideoStore, IFailure, List<Video>>(
+  ScopedBuilder<HistoryVideoStore, IFailure, ListVideo>(
     store: historyVideoStore,
     onState: (_, list) {
       return GridListsWidget(gridList: list);

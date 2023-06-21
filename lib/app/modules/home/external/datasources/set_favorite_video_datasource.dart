@@ -27,7 +27,7 @@ class SetFavoriteVideoDatasource extends ISetFavoriteVideoDatasource {
 
     try {
       final List<DatabaseResultEnum> result = [];
-      final List<Video> databaseResult = [];
+      final ListVideo databaseResult = [];
 
       result.add(
         (await database.update(table, columns, where)).fold((l) => DatabaseResultEnum.notUpdated, (r) {
