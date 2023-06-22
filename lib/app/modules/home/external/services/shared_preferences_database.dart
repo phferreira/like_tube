@@ -20,11 +20,11 @@ class SharedPreferencesDatabase extends IDataBase {
   }
 
   @override
-  Future<Either<IFailure, List<Map<String, dynamic>>>> delete(String table, WhereType where) async {
+  Future<Either<IFailure, List<JsonType>>> delete(String table, WhereType where) async {
     try {
       final box = await initSharedPreferences(table);
 
-      final List<Map<String, dynamic>> removed = [];
+      final List<JsonType> removed = [];
 
       (await select(table, [], where)).fold((l) => throw l, (r) => removed.addAll(r));
 
@@ -42,7 +42,7 @@ class SharedPreferencesDatabase extends IDataBase {
   }
 
   @override
-  Future<Either<IFailure, List<Map<String, dynamic>>>> insert(String table, ColumnType columns) async {
+  Future<Either<IFailure, List<JsonType>>> insert(String table, ColumnType columns) async {
     try {
       final box = await initSharedPreferences(table);
 
@@ -54,7 +54,7 @@ class SharedPreferencesDatabase extends IDataBase {
       }
 
       await box.setString(columns.values.first, jsonEncode(columns));
-      final List<Map<String, dynamic>> result = (await select(table, [], where)).fold((l) => [], (r) => r);
+      final List<JsonType> result = (await select(table, [], where)).fold((l) => [], (r) => r);
       return Right(result);
     } catch (e) {
       return Left(DataBaseError(e.toString()));
@@ -62,15 +62,15 @@ class SharedPreferencesDatabase extends IDataBase {
   }
 
   @override
-  Future<Either<IFailure, List<Map<String, dynamic>>>> select(String table, ColumnsSelectType columns, WhereType where) async {
-    final List<Map<String, dynamic>> listBox = [];
+  Future<Either<IFailure, List<JsonType>>> select(String table, ColumnsSelectType columns, WhereType where) async {
+    final List<JsonType> listBox = [];
     try {
       final box = await initSharedPreferences(table);
       final listBoxAux = box.getKeys();
 
       for (final element in listBoxAux) {
         final String map = box.getString(element) ?? '';
-        final json = jsonDecode(map) as Map<String, dynamic>;
+        final json = jsonDecode(map) as JsonType;
 
         where.forEach((keyWhere, valueWhere) {
           if ((json.containsKey(keyWhere)) && (valueWhere.contains(json[keyWhere].toString()))) {
@@ -85,9 +85,9 @@ class SharedPreferencesDatabase extends IDataBase {
   }
 
   @override
-  Future<Either<IFailure, List<Map<String, dynamic>>>> update(String table, ColumnType columns, WhereType where) async {
-    List<Map<String, dynamic>> finalList = [];
-    final List<Map<String, dynamic>> resultList = [];
+  Future<Either<IFailure, List<JsonType>>> update(String table, ColumnType columns, WhereType where) async {
+    List<JsonType> finalList = [];
+    final List<JsonType> resultList = [];
     try {
       final box = await initSharedPreferences(table);
       finalList = (await select(table, [], where)).fold((l) => [], (r) => r);

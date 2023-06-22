@@ -14,7 +14,7 @@ class DataBaseMock extends Mock implements IDataBase {}
 void main() {
   final IDataBase database = DataBaseMock();
   final IGetHistoricVideoDatasource datasource = GetHistoricVideoDatasource(database: database);
-  final List<Map<String, dynamic>> listResult = [];
+  final List<JsonType> listResult = [];
 
   setUpAll(() {
     final Video video = Video(id: '100', title: 'Titulo 01', url: 'http://teste.com');

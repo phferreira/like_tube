@@ -1,4 +1,6 @@
 import 'dart:convert';
+
+import 'package:like_tube/app/core/types/query_type.dart';
 import 'package:like_tube/app/modules/home/domain/entities/i_video.dart';
 
 class Video implements IVideo {
@@ -28,7 +30,7 @@ class Video implements IVideo {
     favorite = false;
   }
 
-  Map<String, dynamic> toMap() {
+  JsonType toMap() {
     return {
       'cd_id': id,
       'tx_title': title,
@@ -37,7 +39,7 @@ class Video implements IVideo {
     };
   }
 
-  factory Video.fromMap(Map<String, dynamic> map) {
+  factory Video.fromMap(JsonType map) {
     return Video(
       favorite: map['bl_favorite'].toString() == 'true',
       id: map['cd_id'] as String,
@@ -48,9 +50,9 @@ class Video implements IVideo {
 
   String toJson() => jsonEncode(toMap());
 
-  factory Video.fromJson(String source) => Video.fromMap(jsonDecode(source) as Map<String, dynamic>);
+  factory Video.fromJson(String source) => Video.fromMap(jsonDecode(source) as JsonType);
 
-  factory Video.fromJsonHttp(Map<String, dynamic> json) {
+  factory Video.fromJsonHttp(JsonType json) {
     return Video(
       id: json['id']['videoId'] as String,
       title: json['snippet']['title'] as String,

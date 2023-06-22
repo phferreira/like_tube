@@ -14,7 +14,7 @@ class DioApiConnection extends IHttp {
 
   @override
   Future<Either<IFailure, ListVideo>> get(String description) async {
-    Response<Map<String, dynamic>> response;
+    Response<JsonType> response;
 
     try {
       response = await dio.get(
@@ -36,7 +36,7 @@ class DioApiConnection extends IHttp {
     }
 
     final result = (response.data!['items'] as List).map((element) {
-      return Video.fromJsonHttp(element as Map<String, dynamic>);
+      return Video.fromJsonHttp(element as JsonType);
     }).toList();
     return Right(result);
   }

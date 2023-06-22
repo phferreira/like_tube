@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:like_tube/app/core/connections/i_database.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
+import 'package:like_tube/app/core/types/query_type.dart';
 import 'package:like_tube/app/modules/home/domain/entities/video.dart';
 import 'package:like_tube/app/modules/home/external/datasources/get_historic_video_datasource.dart';
 import 'package:like_tube/app/modules/home/external/services/failures/database_failure.dart';
@@ -13,7 +14,7 @@ class DataBaseMock extends Mock implements IDataBase {}
 void main() {
   final IDataBase database = DataBaseMock();
   final IGetHistoricVideoDatasource datasource = GetHistoricVideoDatasource(database: database);
-  final List<Map<String, dynamic>> listResult = [];
+  final List<JsonType> listResult = [];
 
   setUpAll(() {
     final Video video = Video(id: '100', title: 'Titulo 01', url: 'http://teste.com', favorite: true);

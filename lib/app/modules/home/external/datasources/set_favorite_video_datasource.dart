@@ -31,7 +31,7 @@ class SetFavoriteVideoDatasource extends ISetFavoriteVideoDatasource {
 
       result.add(
         (await database.update(table, columns, where)).fold((l) => DatabaseResultEnum.notUpdated, (r) {
-          for (final Map<String, dynamic> element in r) {
+          for (final JsonType element in r) {
             databaseResult.add(Video.fromMap(element));
           }
           return DatabaseResultEnum.updated;
@@ -40,7 +40,7 @@ class SetFavoriteVideoDatasource extends ISetFavoriteVideoDatasource {
       if (result.last == DatabaseResultEnum.notUpdated) {
         result.add(
           (await database.insert(table, columns)).fold((l) => DatabaseResultEnum.notInserted, (r) {
-            for (final Map<String, dynamic> element in r) {
+            for (final JsonType element in r) {
               databaseResult.add(Video.fromMap(element));
             }
             return DatabaseResultEnum.inserted;
