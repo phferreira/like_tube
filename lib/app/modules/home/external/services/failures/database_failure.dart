@@ -7,6 +7,13 @@ class DataBaseError implements IFailure {
   DataBaseError([this.message = '']);
 }
 
+class DataBaseDeleteError implements IFailure {
+  @override
+  final String message;
+
+  DataBaseDeleteError([this.message = '']);
+}
+
 class DataBaseUpdateError implements IFailure {
   @override
   final String message;
@@ -14,11 +21,11 @@ class DataBaseUpdateError implements IFailure {
   DataBaseUpdateError([this.message = '']);
 }
 
-class DataBaseNotUpdateError implements IFailure {
+class DataBaseSelectError implements IFailure {
   @override
   final String message;
 
-  DataBaseNotUpdateError([this.message = '']);
+  DataBaseSelectError([this.message = '']);
 }
 
 class DataBaseInsertError implements IFailure {

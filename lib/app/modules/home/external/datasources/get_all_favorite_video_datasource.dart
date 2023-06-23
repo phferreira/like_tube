@@ -3,7 +3,7 @@ import 'package:like_tube/app/core/connections/i_database.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
 import 'package:like_tube/app/core/types/query_type.dart';
 import 'package:like_tube/app/modules/home/domain/entities/video.dart';
-import 'package:like_tube/app/modules/home/external/services/failures/database_failure.dart';
+import 'package:like_tube/app/modules/home/infrastructure/datasources/failures/get_all_favorite_video_datasource_failure.dart';
 import 'package:like_tube/app/modules/home/infrastructure/datasources/i_get_all_favorite_video_datasource.dart';
 
 class GetAllFavoriteVideoDatasource extends IGetAllFavoriteVideoDatasource {
@@ -31,7 +31,7 @@ class GetAllFavoriteVideoDatasource extends IGetAllFavoriteVideoDatasource {
     } on IFailure catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(DataBaseError());
+      return Left(GetAllFavoriteVideoDatasourceError());
     }
   }
 }

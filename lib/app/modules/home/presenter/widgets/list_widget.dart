@@ -3,13 +3,11 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
 import 'package:like_tube/app/core/types/query_type.dart';
-import 'package:like_tube/app/modules/home/presenter/stores/bottom_navigation_store.dart';
 import 'package:like_tube/app/modules/home/presenter/stores/favorite_video_store.dart';
 import 'package:like_tube/app/modules/home/presenter/stores/history_video_store.dart';
 import 'package:like_tube/app/modules/home/presenter/stores/home_store.dart';
 import 'package:like_tube/app/modules/home/presenter/widgets/grid_list_widget.dart';
 
-BottomNavigationStore get bottomNavigationStore => Modular.get<BottomNavigationStore>();
 HomeStore get homeStore => Modular.get<HomeStore>();
 FavoriteVideoStore get videoItemStore => Modular.get<FavoriteVideoStore>();
 HistoryVideoStore get historyVideoStore => Modular.get<HistoryVideoStore>();

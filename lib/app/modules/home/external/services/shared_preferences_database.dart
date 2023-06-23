@@ -37,7 +37,7 @@ class SharedPreferencesDatabase extends IDataBase {
     } on IFailure catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(DataBaseError());
+      return Left(DataBaseDeleteError());
     }
   }
 
@@ -57,7 +57,7 @@ class SharedPreferencesDatabase extends IDataBase {
       final List<JsonType> result = (await select(table, [], where)).fold((l) => [], (r) => r);
       return Right(result);
     } catch (e) {
-      return Left(DataBaseError(e.toString()));
+      return Left(DataBaseInsertError(e.toString()));
     }
   }
 
@@ -80,7 +80,7 @@ class SharedPreferencesDatabase extends IDataBase {
       }
       return Right(listBox);
     } catch (e) {
-      return Left(DataBaseError(e.toString()));
+      return Left(DataBaseSelectError(e.toString()));
     }
   }
 
@@ -109,12 +109,12 @@ class SharedPreferencesDatabase extends IDataBase {
         resultList.addAll((await select(table, [], where)).fold((l) => [], (r) => r));
         return Right(resultList);
       } else {
-        return Left(DataBaseNotUpdateError());
+        return Left(DataBaseSelectError('Não encontrou dados'));
       }
     } on IFailure catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(DataBaseError(e.toString()));
+      return Left(DataBaseUpdateError(e.toString()));
     }
   }
 }
