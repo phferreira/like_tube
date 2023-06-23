@@ -53,4 +53,4 @@ jobs:
           channel: "stable"
       - run: flutter clean
       - run: flutter pub get
-      - run: flutter build appbundle
+      - run: flutter build appbundle --release
