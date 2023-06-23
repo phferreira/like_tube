@@ -4,6 +4,7 @@ import 'package:like_tube/app/app_module.dart';
 import 'package:like_tube/app/app_widget.dart';
 
 void main() {
+  // FIX CI/CD:  <22-06-23, yourname> //
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(
