@@ -61,7 +61,7 @@ jobs:
           echo flutter.targetSdkVersion=\${{ secrets.TARGET_SDK_VERSION }} >> ${{env.PROPERTIES_PATH}}
 
           echo { >> ${{ env.FLUTTER_KEYS_PATH }}
-          echo \"YOUTUBE_APYKEY\"=\"\${{ secrets.YOUTUBE_APYKEY }}\" >> ${{ env.FLUTTER_KEYS_PATH }}
+          echo \"YOUTUBE_APIKEY\"=\"\${{ secrets.YOUTUBE_APIKEY }}\" >> ${{ env.FLUTTER_KEYS_PATH }}
           echo } >> ${{ env.FLUTTER_KEYS_PATH }}
       - run: flutter clean
       - run: flutter pub get

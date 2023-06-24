@@ -1,1 +1,1 @@
-const String apiKeyYoutube = String.fromEnvironment('YOUTUBE_APYKEY');
+const String apiKeyYoutube = String.fromEnvironment('YOUTUBE_APIKEY');
