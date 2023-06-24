@@ -67,8 +67,7 @@ jobs:
       - run: flutter pub get
       - run: flutter build appbundle --release --dart-define-from-file=${{ env.FLUTTER_KEYS_PATH }}
         
-      - name: Upload artifact 
-        uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v2
         with:
           name: appbundle
           path: build/app/outputs/bundle/release
