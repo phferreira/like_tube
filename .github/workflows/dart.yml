@@ -58,7 +58,7 @@ jobs:
         with:
           channel: ${{env.FLUTTER_CHANNEL}}
       - run: |
-          echo flutter.targetSdkVersion=\${{ secrets.TARGET_SDK_VERSION }} >> ${{env.PROPERTIES_PATH}}
+          echo flutter.targetSdkVersion=\${{ vars.TARGET_SDK_VERSION }} >> ${{env.PROPERTIES_PATH}}
 
           echo { >> ${{ env.FLUTTER_KEYS_PATH }}
           echo \"YOUTUBE_APIKEY\"=\"\${{ secrets.YOUTUBE_APIKEY }}\" >> ${{ env.FLUTTER_KEYS_PATH }}
