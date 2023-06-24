@@ -44,9 +44,19 @@ jobs:
       - uses: subosito/flutter-action@v2.8.0
         with:
           channel: ${{env.FLUTTER_CHANNEL}}
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1.2'
+      - name: Install Fastlane
+        run: cd ios && bundle install && cd ..
       - run: flutter clean
       - run: flutter pub get
+      - name: Install pods
+        run: cd ios && pod install && cd ..
       - run: flutter build ios --release --no-codesign
+      - name: Execute Fastlane command
+        run: cd ios && fastlane release type:github
+        timeout-minutes: 40
 
   build_appbundle:
     name: Build Flutter (Android)
