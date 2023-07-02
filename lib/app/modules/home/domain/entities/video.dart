@@ -5,6 +5,9 @@ import 'package:like_tube/app/modules/home/domain/entities/i_video.dart';
 
 class Video implements IVideo {
   @override
+  bool historic = false;
+
+  @override
   bool favorite = false;
 
   @override
@@ -21,6 +24,7 @@ class Video implements IVideo {
     required this.title,
     required this.url,
     this.favorite = false,
+    this.historic = false,
   });
 
   Video.noProperties() {
@@ -28,6 +32,7 @@ class Video implements IVideo {
     title = '';
     url = '';
     favorite = false;
+    historic = false;
   }
 
   JsonType toMap() {
@@ -36,12 +41,14 @@ class Video implements IVideo {
       'tx_title': title,
       'tx_url': url,
       'bl_favorite': '$favorite',
+      'bl_historic': '$historic',
     };
   }
 
   factory Video.fromMap(JsonType map) {
     return Video(
       favorite: map['bl_favorite'].toString() == 'true',
+      historic: map['bl_historic'].toString() == 'true',
       id: map['cd_id'] as String,
       title: map['tx_title'] as String,
       url: map['tx_url'] as String,
@@ -54,9 +61,9 @@ class Video implements IVideo {
 
   factory Video.fromJsonHttp(JsonType json) {
     return Video(
-      id: json['id']['videoId'] as String,
-      title: json['snippet']['title'] as String,
-      url: json['snippet']['thumbnails']['high']['url'] as String,
+      id: json['id']['videoId'].toString(),
+      title: json['snippet']['title'].toString(),
+      url: json['snippet']['thumbnails']['high']['url'].toString(),
     );
   }
 }

@@ -3,4 +3,5 @@ abstract class IVideo {
   String title = '';
   String url = '';
   bool favorite = false;
+  bool historic = false;
 }
