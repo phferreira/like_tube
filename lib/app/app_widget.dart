@@ -8,7 +8,8 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Like Tube',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      themeMode: ThemeMode.dark,
+      darkTheme: ThemeData.dark(useMaterial3: true),
       routerDelegate: Modular.routerDelegate,
       routeInformationParser: Modular.routeInformationParser,
     );
