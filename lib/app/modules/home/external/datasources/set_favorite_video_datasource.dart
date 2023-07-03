@@ -19,6 +19,7 @@ class SetFavoriteVideoDatasource extends ISetFavoriteVideoDatasource {
       'tx_title': video.title,
       'tx_url': video.url,
       'bl_favorite': (!video.favorite).toString(),
+      'bl_historic': video.historic.toString(),
     };
 
     final WhereType where = {

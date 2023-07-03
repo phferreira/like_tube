@@ -20,15 +20,17 @@ class SetHistoricVideoDatasource extends ISetHistoricVideoDatasource {
       'cd_id': videoParam.id,
       'tx_title': videoParam.title,
       'tx_url': videoParam.url,
+      'bl_favorite': videoParam.favorite.toString(),
+      'bl_historic': 'true',
     };
 
     try {
       final ListVideo databaseResult = <Video>[];
 
       (await database.insert(table, columns)).fold((l) => throw l, (r) {
-        return r.toList().forEach((element) {
+        for (final JsonType element in r) {
           databaseResult.add(Video.fromMap(element));
-        });
+        }
       });
       return Right(databaseResult.last);
     } on IFailure catch (e) {
