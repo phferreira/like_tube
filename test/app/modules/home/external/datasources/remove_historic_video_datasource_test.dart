@@ -15,25 +15,29 @@ void main() {
   final IDataBase database = DataBaseMock();
   final IRemoveHistoricVideoDatasource datasource = RemoveHistoricVideoDatasource(database: database);
   final List<JsonType> listResult = [];
-  final Video video = Video(id: '986', title: 'Titulo 986', url: 'http://teste.com');
+  final Video video = Video(
+    id: '986',
+    title: 'Titulo 986',
+    url: 'http://teste.com',
+  );
 
   setUpAll(() {
     listResult.add(video.toMap());
   });
 
   test('Deve retornar o Video que foi removido', () async {
-    when(() => database.delete(any(), any())).thenAnswer((_) async => Right(listResult));
+    when(() => database.update(any(), any(), any())).thenAnswer((_) async => Right(listResult));
     final result = await datasource(video);
 
     expect(result, isA<Right<IFailure, Video>>());
-    verify(() => database.delete(any(), any()));
+    verify(() => database.update(any(), any(), any()));
   });
 
   test('Deve retornar um Left(IFailure) quando vier DatabaseError da consulta', () async {
-    when(() => database.delete(any(), any())).thenAnswer((_) async => Left(DataBaseError()));
+    when(() => database.update(any(), any(), any())).thenAnswer((_) async => Left(DataBaseError()));
     final result = await datasource(video);
 
     expect(result, isA<Left<IFailure, Video>>());
-    verify(() => database.delete(any(), any()));
+    verify(() => database.update(any(), any(), any()));
   });
 }
