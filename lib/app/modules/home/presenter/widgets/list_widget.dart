@@ -11,11 +11,12 @@ import 'package:like_tube/app/modules/home/presenter/widgets/grid_list_widget.da
 HomeStore get homeStore => Modular.get<HomeStore>();
 FavoriteVideoStore get videoItemStore => Modular.get<FavoriteVideoStore>();
 HistoryVideoStore get historyVideoStore => Modular.get<HistoryVideoStore>();
+final pesquisarController = TextEditingController();
 
 List<AppBar> listWidgetMenu = <AppBar>[
   AppBar(
     title: TextField(
-      controller: homeStore.pesquisarController,
+      controller: pesquisarController,
       decoration: InputDecoration(
         labelText: 'Pesquisar',
         labelStyle: const TextStyle(
