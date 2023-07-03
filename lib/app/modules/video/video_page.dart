@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:like_tube/app/modules/home/domain/entities/video.dart';
+import 'package:like_tube/app/modules/home/presenter/stores/favorite_video_store.dart';
 import 'package:like_tube/app/modules/home/presenter/stores/history_video_store.dart';
+import 'package:like_tube/app/modules/home/presenter/widgets/video_item_widget.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoPage extends StatefulWidget {
@@ -16,13 +18,14 @@ class VideoPage extends StatefulWidget {
 class _VideoPageState extends State<VideoPage> {
   late YoutubePlayerController _controller;
   final HistoryVideoStore _historyVideoStore = Modular.get<HistoryVideoStore>();
+  final FavoriteVideoStore _favoriteVideoStore = Modular.get<FavoriteVideoStore>();
 
   @override
   void initState() {
     _controller = YoutubePlayerController(
       initialVideoId: widget.video.id,
       flags: const YoutubePlayerFlags(
-        controlsVisibleAtStart: true,
+        autoPlay: false,
       ),
     );
     _historyVideoStore.setHistoryVideo(widget.video);
@@ -31,23 +34,92 @@ class _VideoPageState extends State<VideoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.video.title),
-      ),
-      body: Column(
-        children: <Widget>[
-          SizedBox(
-            height: (MediaQuery.of(context).orientation == Orientation.portrait) ? MediaQuery.of(context).size.height / 1.5 : MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: YoutubePlayer(
-              onEnded: (_) => Modular.to.pop(),
-              controller: _controller,
-              liveUIColor: Colors.amber,
-            ),
+    return YoutubePlayerBuilder(
+      player: YoutubePlayer(controller: _controller),
+      builder: (context, player) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(widget.video.title),
           ),
-        ],
-      ),
+          body: Column(
+            children: [
+              player,
+              Expanded(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        height: 20,
+                        child: Row(
+                          children: [
+                            const Text('Favoritos'),
+                            const Expanded(child: SizedBox()),
+                            ElevatedButton(
+                              onPressed: () {},
+                              child: const Text('Ver todos'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: GridView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _favoriteVideoStore.state.length,
+                        padding: const EdgeInsets.all(8),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 20,
+                        ),
+                        itemBuilder: (context, index) => VideoItemWidget(
+                          video: _favoriteVideoStore.state[index],
+                          headerVisible: false,
+                          footerVisible: false,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        height: 20,
+                        child: Row(
+                          children: [
+                            const Text('Historico'),
+                            const Expanded(child: SizedBox()),
+                            ElevatedButton(
+                              onPressed: () {},
+                              child: const Text('Ver todos'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: GridView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _historyVideoStore.state.length,
+                        padding: const EdgeInsets.all(8),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 20,
+                        ),
+                        itemBuilder: (context, index) => VideoItemWidget(
+                          video: _historyVideoStore.state[index],
+                          headerVisible: false,
+                          footerVisible: false,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }
