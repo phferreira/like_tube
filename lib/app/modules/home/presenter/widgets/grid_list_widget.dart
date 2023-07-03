@@ -29,6 +29,8 @@ class _GridListsWidgetState extends State<GridListsWidget> {
         ),
         itemBuilder: (context, index) => VideoItemWidget(
           video: widget.gridList[index],
+          headerVisible: true,
+          footerVisible: true,
         ),
       ),
     );
