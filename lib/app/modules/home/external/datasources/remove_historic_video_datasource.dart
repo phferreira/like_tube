@@ -18,12 +18,18 @@ class RemoveHistoricVideoDatasource extends IRemoveHistoricVideoDatasource {
 
     final WhereType where = {
       'cd_id': [videoParam.id],
+      'bl_historic': ['true'],
+    };
+
+    final ColumnType columns = {
+      'cd_id': videoParam.id,
+      'bl_historic': 'false',
     };
 
     try {
       final ListVideo databaseResult = <Video>[];
 
-      (await database.delete(table, where)).fold((l) => throw l, (r) {
+      (await database.update(table, columns, where)).fold((l) => throw l, (r) {
         return r.toList().forEach((element) {
           databaseResult.add(Video.fromMap(element));
         });

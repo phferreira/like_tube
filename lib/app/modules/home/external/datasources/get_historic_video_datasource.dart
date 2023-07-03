@@ -15,13 +15,17 @@ class GetHistoricVideoDatasource extends IGetHistoricVideoDatasource {
   Future<Either<IFailure, ListVideo>> call() async {
     const String table = 'tb_historicvideos';
 
+    final WhereType where = {
+      'bl_historic': ['true'],
+    };
+
     try {
       final ListVideo databaseResult = <Video>[];
 
-      (await database.select(table, [], {})).fold((l) => throw l, (r) {
-        return r.toList().forEach((element) {
+      (await database.select(table, [], where)).fold((l) => throw l, (r) {
+        for (final JsonType element in r) {
           databaseResult.add(Video.fromMap(element));
-        });
+        }
       });
       return Right(databaseResult);
     } on IFailure catch (e) {
