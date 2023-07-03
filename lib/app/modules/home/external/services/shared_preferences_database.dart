@@ -72,11 +72,15 @@ class SharedPreferencesDatabase extends IDataBase {
         final String map = prefs.getString(element) ?? '';
         final json = jsonDecode(map) as JsonType;
 
-        where.forEach((keyWhere, valueWhere) {
-          if ((json.containsKey(keyWhere)) && (valueWhere.contains(json[keyWhere].toString()))) {
-            listBox.add(json);
-          }
-        });
+        if (where.isEmpty) {
+          listBox.add(json);
+        } else {
+          where.forEach((keyWhere, valueWhere) {
+            if ((json.containsKey(keyWhere)) && (valueWhere.contains(json[keyWhere].toString()))) {
+              listBox.add(json);
+            }
+          });
+        }
       }
       return Right(listBox);
     } catch (e) {
