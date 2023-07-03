@@ -3,6 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:like_tube/app/core/errors/i_failure.dart';
 import 'package:like_tube/app/core/types/query_type.dart';
+import 'package:like_tube/app/core/utils/debounce.dart';
 import 'package:like_tube/app/modules/home/presenter/stores/favorite_video_store.dart';
 import 'package:like_tube/app/modules/home/presenter/stores/history_video_store.dart';
 import 'package:like_tube/app/modules/home/presenter/stores/home_store.dart';
@@ -12,6 +13,7 @@ HomeStore get homeStore => Modular.get<HomeStore>();
 FavoriteVideoStore get videoItemStore => Modular.get<FavoriteVideoStore>();
 HistoryVideoStore get historyVideoStore => Modular.get<HistoryVideoStore>();
 final pesquisarController = TextEditingController();
+Debounce debounce = Debounce();
 
 List<AppBar> listWidgetMenu = <AppBar>[
   AppBar(
@@ -24,7 +26,7 @@ List<AppBar> listWidgetMenu = <AppBar>[
         ),
         suffixIcon: IconButton(
           color: Colors.white,
-          onPressed: () => homeStore.getVideoByDescription(''),
+          onPressed: () => debounce(() => homeStore.getVideoByDescription(pesquisarController.text)),
           icon: const Icon(Icons.search),
         ),
       ),
