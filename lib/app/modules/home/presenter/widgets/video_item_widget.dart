@@ -8,10 +8,14 @@ import 'package:like_tube/app/modules/video/video_page.dart';
 
 class VideoItemWidget extends StatelessWidget {
   final Video video;
+  final bool headerVisible;
+  final bool footerVisible;
 
   const VideoItemWidget({
     super.key,
     required this.video,
+    required this.headerVisible,
+    required this.footerVisible,
   });
 
   VideoItemStore get store => Modular.get<VideoItemStore>();
@@ -21,29 +25,35 @@ class VideoItemWidget extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 16 / 9,
       child: GridTile(
-        header: GridTileBar(
-          backgroundColor: Colors.black45,
-          leading: const Icon(Icons.videocam),
-          title: Text(video.title),
-          trailing: const Icon(Icons.share_outlined),
+        header: Visibility(
+          visible: headerVisible,
+          child: GridTileBar(
+            backgroundColor: Colors.black45,
+            leading: const Icon(Icons.videocam),
+            title: Text(video.title),
+            trailing: const Icon(Icons.share_outlined),
+          ),
         ),
-        footer: GridTileBar(
-          backgroundColor: Colors.black45,
-          trailing: ScopedBuilder<VideoItemStore, IFailure, Video>(
-            store: store,
-            onLoading: (_) {
-              return const SizedBox();
-            },
-            onState: (_, video1) {
-              return IconButton(
-                color: video.favorite ? Colors.yellow : Colors.yellow.withAlpha(99),
-                icon: const Icon(Icons.star),
-                splashRadius: 16,
-                onPressed: () {
-                  store.saveFavorite(video);
-                },
-              );
-            },
+        footer: Visibility(
+          visible: footerVisible,
+          child: GridTileBar(
+            backgroundColor: Colors.black45,
+            trailing: ScopedBuilder<VideoItemStore, IFailure, Video>(
+              store: store,
+              onLoading: (_) {
+                return const SizedBox();
+              },
+              onState: (_, video1) {
+                return IconButton(
+                  color: video.favorite ? Colors.yellow : Colors.yellow.withAlpha(99),
+                  icon: const Icon(Icons.star),
+                  splashRadius: 16,
+                  onPressed: () {
+                    store.saveFavorite(video);
+                  },
+                );
+              },
+            ),
           ),
         ),
         child: GestureDetector(
