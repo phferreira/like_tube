@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPreferencesDatabase extends IDataBase {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  Future<SharedPreferences> initSharedPreferences(String table) async {
+  Future<SharedPreferences> initSharedPreferences() async {
     try {
       return await _prefs;
     } catch (e) {
@@ -22,7 +22,7 @@ class SharedPreferencesDatabase extends IDataBase {
   @override
   Future<Either<IFailure, List<JsonType>>> delete(String table, WhereType where) async {
     try {
-      final box = await initSharedPreferences(table);
+      final prefs = await initSharedPreferences();
 
       final List<JsonType> removed = [];
 
@@ -30,7 +30,7 @@ class SharedPreferencesDatabase extends IDataBase {
 
       for (final dynamic element in removed) {
         final String deleteKey = element.values.first.toString();
-        box.remove(deleteKey);
+        prefs.remove(deleteKey);
       }
 
       return Right(removed);
@@ -44,7 +44,7 @@ class SharedPreferencesDatabase extends IDataBase {
   @override
   Future<Either<IFailure, List<JsonType>>> insert(String table, ColumnType columns) async {
     try {
-      final box = await initSharedPreferences(table);
+      final prefs = await initSharedPreferences();
 
       final WhereType where = {};
       for (final key in columns.keys) {
@@ -53,7 +53,7 @@ class SharedPreferencesDatabase extends IDataBase {
         });
       }
 
-      await box.setString(columns.values.first, jsonEncode(columns));
+      await prefs.setString(columns.values.first, jsonEncode(columns));
       final List<JsonType> result = (await select(table, [], where)).fold((l) => [], (r) => r);
       return Right(result);
     } catch (e) {
@@ -65,11 +65,11 @@ class SharedPreferencesDatabase extends IDataBase {
   Future<Either<IFailure, List<JsonType>>> select(String table, ColumnsSelectType columns, WhereType where) async {
     final List<JsonType> listBox = [];
     try {
-      final box = await initSharedPreferences(table);
-      final listBoxAux = box.getKeys();
+      final prefs = await initSharedPreferences();
+      final listBoxAux = prefs.getKeys();
 
       for (final element in listBoxAux) {
-        final String map = box.getString(element) ?? '';
+        final String map = prefs.getString(element) ?? '';
         final json = jsonDecode(map) as JsonType;
 
         where.forEach((keyWhere, valueWhere) {
@@ -89,7 +89,7 @@ class SharedPreferencesDatabase extends IDataBase {
     List<JsonType> finalList = [];
     final List<JsonType> resultList = [];
     try {
-      final box = await initSharedPreferences(table);
+      final prefs = await initSharedPreferences();
       finalList = (await select(table, [], where)).fold((l) => [], (r) => r);
 
       where.forEach((keyWhere, valueWhere) {
@@ -104,7 +104,7 @@ class SharedPreferencesDatabase extends IDataBase {
             element[keyUpdate] = valueUpdate;
           });
 
-          box.setString(columns.values.first, jsonEncode(element));
+          prefs.setString(columns.values.first, jsonEncode(element));
         }
         resultList.addAll((await select(table, [], where)).fold((l) => [], (r) => r));
         return Right(resultList);
