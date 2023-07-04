@@ -101,4 +101,4 @@ jobs:
         appId: ${{secrets.FIREBASE_APP_ID}}
         serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
         groups: testers
-        file: app/build/outputs/apk/release/app-release.aap
+        file: build/app/outputs/bundle/release/appbundle.aap
