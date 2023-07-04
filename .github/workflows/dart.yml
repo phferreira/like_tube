@@ -95,10 +95,14 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Download Artifact
+      uses: actions/download-artifact@master
+      with:
+        name: appbundle
     - name: upload artifact to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1
       with:
         appId: ${{secrets.FIREBASE_APP_ID}}
         serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
         groups: testers
-        file: build/app/outputs/bundle/release/appbundle.aap
+        file: appbundle.aap
