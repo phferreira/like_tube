@@ -83,7 +83,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: appbundle
-          path: build/app/outputs/bundle/release
+          path: build/app/outputs/bundle/release/app-release.aab
 
   beta_apk:
     name: Upload Android Beta to Firebase App Distribution
@@ -105,4 +105,4 @@ jobs:
         appId: ${{secrets.FIREBASE_APP_ID}}
         serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
         groups: testers
-        file: appbundle.aab
+        file: app-release.aab
