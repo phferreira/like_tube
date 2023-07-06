@@ -101,5 +101,3 @@ jobs:
           firebaseServiceAccount: '${{ secrets.CREDENTIAL_FILE_CONTENT  }}'
             # channelId: live
           projectId: like-tube-8015a
-          groups: testers
-          file: app-release.aab
