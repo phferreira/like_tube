@@ -95,10 +95,10 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: ${{env.JAVA_VERSION}}
-          # - name: Download Artifact
-          #   uses: actions/download-artifact@v3
-          #   with:
-          #     name: app-release
+    - name: Download Artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: app-release
     - name: Display structure of downloaded files
       run: ls -R
     - name: upload artifact to Firebase App Distribution
@@ -107,4 +107,4 @@ jobs:
         appId: ${{secrets.FIREBASE_APP_ID}}
         serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
         groups: testers
-        file: build/app/outputs/flutter-apk/app-release.apk
+        file: app-release.apk
