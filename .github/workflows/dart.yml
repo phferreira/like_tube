@@ -3,8 +3,6 @@ name: Dart
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 env:
   JAVA_VERSION: "18.x"
@@ -90,7 +88,7 @@ jobs:
 
   beta_apk:
     name: Upload Android Beta to Firebase App Distribution
-    needs: [build_appbundle]
+    needs: [build_apk]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
