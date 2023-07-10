@@ -78,7 +78,7 @@ jobs:
 
       - run: flutter clean
       - run: flutter pub get
-      - run: flutter build apk --release --dart-define-from-file=${{ env.FLUTTER_KEYS_PATH }}
+      - run: flutter build apk --release --dart-define-from-file=${{ env.FLUTTER_KEYS_PATH }} --build-number=${GITHUB_RUN_NUMBER}
       - name: Tar apk file
         run: tar -cvf build/app/outputs/flutter-apk/app-release.tar build/app/outputs/flutter-apk/app-release.apk
       - name: Upload artifact
