@@ -51,13 +51,6 @@ List<AppBar> listWidgetMenu = <AppBar>[
             ),
             onTap: () => historyVideoStore.removeAll(),
           ),
-          PopupMenuItem(
-            child: const ListTile(
-              title: Text(apiKeyYoutube),
-              leading: Icon(Icons.delete),
-            ),
-            onTap: () => (),
-          ),
         ],
       ),
     ],
