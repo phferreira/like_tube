@@ -64,7 +64,9 @@ List<Widget> listWidgetBody = <Widget>[
       return GridListsWidget(gridList: list);
     },
     onError: (context, error) {
-      return Container();
+      return Center(
+        child: Text(error!.message),
+      );
     },
   ),
   ScopedBuilder<FavoriteVideoStore, IFailure, ListVideo>(
